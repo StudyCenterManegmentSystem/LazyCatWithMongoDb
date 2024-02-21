@@ -1,5 +1,7 @@
 ﻿
 
+using Domain.Entities.Entity.Teachers;
+
 namespace Web;
 
 public static class Startup
@@ -92,6 +94,12 @@ public static class Startup
         services.ConfigureMongoDbIdentity<ApplicationUser, ApplicationRole, Guid>(mongoDbIdentityConfig)
                 .AddUserManager<UserManager<ApplicationUser>>()
                 .AddSignInManager<SignInManager<ApplicationUser>>()
+                .AddRoleManager<RoleManager<ApplicationRole>>()
+                .AddDefaultTokenProviders();
+
+        services.ConfigureMongoDbIdentity<Teacher, ApplicationRole, Guid>(mongoDbIdentityConfig)
+                .AddUserManager<UserManager<Teacher>>()
+                .AddSignInManager<SignInManager<Teacher>>()
                 .AddRoleManager<RoleManager<ApplicationRole>>()
                 .AddDefaultTokenProviders();
 
