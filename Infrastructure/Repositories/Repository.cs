@@ -1,5 +1,10 @@
 ﻿using Domain.Entities.Entity;
 using Infrastructure.Interfaces;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -22,14 +27,14 @@ namespace Infrastructure.Repositories
             await _collection.InsertOneAsync(entity);
         }
 
-        public async Task DeleteAsync(TEntity entity)
+        public async Task DeleteAsync(string id)
         {
-            if (entity == null)
+            if (!ObjectId.TryParse(id, out ObjectId objectId))
             {
-                throw new ArgumentNullException(nameof(entity));
+                throw new ArgumentException("Invalid ObjectId format", nameof(id));
             }
 
-            var filter = Builders<TEntity>.Filter.Eq(doc => doc.Id, entity.Id);
+            var filter = Builders<TEntity>.Filter.Eq("_id", objectId);
             await _collection.DeleteOneAsync(filter);
         }
 
@@ -39,9 +44,9 @@ namespace Infrastructure.Repositories
             return entities.ToEnumerable().AsQueryable();
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(string id)
         {
-            var filter = Builders<TEntity>.Filter.Eq("Id", id);
+            var filter = Builders<TEntity>.Filter.Eq(doc => doc.Id, id);
             return await _collection.Find(filter).FirstOrDefaultAsync();
         }
 
