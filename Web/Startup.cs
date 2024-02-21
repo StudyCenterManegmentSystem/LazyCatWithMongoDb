@@ -1,6 +1,6 @@
-﻿
-
-using Domain.Entities.Entity.Teachers;
+﻿using Domain.Entities.Entity.Teachers;
+using Infrastructure.Interfaces;
+using Infrastructure.Repositories;
 
 namespace Web;
 
@@ -132,6 +132,13 @@ public static class Startup
 
         services.AddTransient<IIdentityService, IdentityService>();
 
+        #endregion
+
+        #region Services and Repositories
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        //Services
+        services.AddScoped<IRoomService, RoomService>();
         #endregion
     }
 

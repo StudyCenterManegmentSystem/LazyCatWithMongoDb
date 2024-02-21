@@ -1,0 +1,15 @@
+﻿using Infrastructure.Data;
+using Infrastructure.Interfaces;
+
+namespace Infrastructure.Repositories;
+
+public class UnitOfWork : IUnitOfWork
+{
+    public UnitOfWork(ApplicationDbContext dbContext)
+    {
+        _dbContext = dbContext;
+        RoomInterface = new RoomRepository(_dbContext.Rooms);
+    }
+    private readonly ApplicationDbContext _dbContext;
+    public IRoomInterface RoomInterface { get; }
+}
