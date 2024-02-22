@@ -8,12 +8,12 @@ using System.Collections.Immutable;
 
 namespace Application.Services
 {
-    public class TeacherService(UserManager<Teacher> userManager,
+    public class TeacherService(UserManager<Domain.Entities.Entity.Teachers.TeacherDto> userManager,
                                 IConfiguration configuration,
                                 RoleManager<ApplicationRole> roleManager, 
                                 IUnitOfWork unitOfWork) : ITeacherService
     {
-        private readonly UserManager<Teacher> _userManager = userManager;
+        private readonly UserManager<Domain.Entities.Entity.Teachers.TeacherDto> _userManager = userManager;
         private readonly IConfiguration _configuration = configuration;
         private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;

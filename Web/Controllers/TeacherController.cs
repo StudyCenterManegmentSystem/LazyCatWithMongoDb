@@ -125,8 +125,6 @@ public class TeacherController(ITeacherService teacherService) : ControllerBase
         {
             return StatusCode(500, "An error occurred while fetching teachers with fans.");
         }
+
     }
-
-
-
 }

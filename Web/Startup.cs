@@ -97,9 +97,9 @@ public static class Startup
                 .AddRoleManager<RoleManager<ApplicationRole>>()
                 .AddDefaultTokenProviders();
 
-        services.ConfigureMongoDbIdentity<Teacher, ApplicationRole, Guid>(mongoDbIdentityConfig)
-                .AddUserManager<UserManager<Teacher>>()
-                .AddSignInManager<SignInManager<Teacher>>()
+        services.ConfigureMongoDbIdentity<TeacherDto, ApplicationRole, Guid>(mongoDbIdentityConfig)
+                .AddUserManager<UserManager<TeacherDto>>()
+                .AddSignInManager<SignInManager<TeacherDto>>()
                 .AddRoleManager<RoleManager<ApplicationRole>>()
                 .AddDefaultTokenProviders();
 
@@ -129,9 +129,8 @@ public static class Startup
         #endregion
 
         #region Custom DI Services
-        services.AddTransient<IAdminService, AdminService>();
+
         services.AddTransient<IIdentityService, IdentityService>();
-        services.AddTransient<ITeacherService, TeacherService>();
         #endregion
 
         #region Services and Repositories
@@ -173,7 +172,7 @@ public static class Startup
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        var roles = new[] { "Admin", "User", "SuperAdmin", "Teacher" };
+        var roles = new[] { "Admin", "User", "SuperAdmin" };
 
         foreach (var role in roles)
         {

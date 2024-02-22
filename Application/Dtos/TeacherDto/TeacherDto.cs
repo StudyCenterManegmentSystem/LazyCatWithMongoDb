@@ -18,7 +18,7 @@ namespace Application.Dtos.TeacherDto
         [StringLength(100)]
         public string LastName { get; set; } = string.Empty;
 
-        public static implicit operator TeacherDto(Teacher teacher)
+        public static implicit operator TeacherDto(Domain.Entities.Entity.Teachers.TeacherDto teacher)
         {
             return new TeacherDto
             {

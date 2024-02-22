@@ -22,9 +22,9 @@ namespace Application.Dtos.TeacherDto
 
         public List<string>? FanIds { get; set; }
 
-        public static implicit operator Teacher(TeacherRegisterRequest teacherRequest)
+        public static implicit operator TeacherDto(TeacherRegisterRequest teacherRequest)
         {
-            return new Teacher
+            return new Domain.Entities.Entity.Teachers.TeacherDto
             {
                 Email = teacherRequest.Email,
                 FirstName = teacherRequest.FirstName,

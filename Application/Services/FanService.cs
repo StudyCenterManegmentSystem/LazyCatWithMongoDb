@@ -1,6 +1,8 @@
 using Application.Commens.Helpers;
 using Application.Dtos.FanDtos;
+using Application.Dtos.TeacherDto;
 using Domain.Entities.Entity.Fans;
+using Domain.Entities.Entity.Teachers;
 using Infrastructure.Interfaces;
 
 namespace Application.Services;
@@ -33,12 +35,12 @@ public class FanService(IUnitOfWork unitOfWork) : IFanService
         await _unitOfWork.FanRepository.DeleteAsync(id);
     }
 
-    public async Task<List<FanDto>> GetAllAsync()
+
+        public async Task<List<FanDto>> GetAllAsync()
     {
         var fans = await _unitOfWork.FanRepository.GetAllAsync();
         return fans.Select(x => (FanDto)x).ToList();
     }
-
     public async Task<FanDto> GetByIdAsync(string id)
     {
         var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
@@ -51,4 +53,6 @@ public class FanService(IUnitOfWork unitOfWork) : IFanService
         await _unitOfWork.FanRepository.UpdateAsync(fanmap);
 
     }
+
+  
 }

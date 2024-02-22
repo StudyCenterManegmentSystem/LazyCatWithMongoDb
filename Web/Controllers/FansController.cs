@@ -1,6 +1,7 @@
 
 
 using Application.Commens.Constants;
+using Application.Dtos.FanDtos;
 
 namespace Web.Controllers;
 [ApiController]
@@ -27,6 +28,7 @@ public class FansController(IFanService fanService) : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(string id)
     {
