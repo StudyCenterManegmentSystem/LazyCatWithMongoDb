@@ -1,8 +1,11 @@
 
 
+using Application.Commens.Constants;
+
 namespace Web.Controllers;
 [ApiController]
 [Route("api/[controller]")]
+//[Authorize(Roles = IdentityRoles.TEACHER)]
 public class FansController(IFanService fanService) : ControllerBase
 {
     private readonly IFanService _fanService = fanService;

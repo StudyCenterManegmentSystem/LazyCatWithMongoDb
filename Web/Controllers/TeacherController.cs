@@ -1,39 +1,20 @@
-﻿
+﻿using Application.Dtos.TeacherDto;
 
 namespace Web.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Roles = "Teacher")]
-public class RoomsController(IRoomService roomService) : ControllerBase
+public class TeacherController(ITeacherService teacherService) : ControllerBase
 {
-    private readonly IRoomService _roomService = roomService;
+    private readonly ITeacherService _teacherService = teacherService;
 
-    [HttpGet("all-room")]
-    public async Task<IActionResult> GetAllRooms()
+    [HttpPost("login-teacher")]
+    public async Task<IActionResult> Login(TeacherLoginRequest request)
     {
         try
         {
-            var rooms = await _roomService.GetAllAsync();
-            return Ok(rooms);
-        }
-        catch(CustomException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
-        }
-    }
-
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(string id)
-    {
-        try
-        {
-            var room = await _roomService.GetByIdAsync(id);
-            return Ok(room);
+            var response = await _teacherService.LoginAsync(request);
+            return Ok(response);
         }
         catch (CustomException ex)
         {
@@ -45,13 +26,13 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         }
     }
 
-    [HttpPost]
-    public async  Task<IActionResult> Post(AddRoomDto addRoomDto)
+    [HttpPatch("change-teacher-password")]
+    public async Task<IActionResult> ChangePassword(TeacherChangePasswordRequest request)
     {
         try
         {
-            await _roomService.AddAsync(addRoomDto);
-            return Ok("Added saccessfully");
+            var response = await _teacherService.ChangePasswordAsync(request);
+            return response.Success ? Ok(response) : BadRequest(response);
         }
         catch (CustomException ex)
         {
@@ -63,14 +44,18 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         }
     }
 
-    [HttpPut]
-    public async Task<IActionResult> Put(RoomDto updateRoomDto)
+
+    [HttpPatch("logout-teacher")]
+    public async Task<IActionResult> Logout(TeacherLoginRequest request)
     {
         try
         {
-            await _roomService.UpdateAsync(updateRoomDto);
-
-            return Ok("Updated saccessfully");
+            await _teacherService.LogoutAsync(request);
+            return Ok("Logout successful");
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
         }
         catch (CustomException ex)
         {
@@ -82,14 +67,17 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id)
+    [HttpDelete("delete-teacher-account")]
+    public async Task<IActionResult> DeleteAccount(TeacherLoginRequest request)
     {
         try
         {
-            await _roomService.DeleteAsync(id);
-
-            return NoContent();
+            await _teacherService.DeleteAccountAsync(request);
+            return Ok("Account deleted successfully");
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
         }
         catch (CustomException ex)
         {
@@ -100,4 +88,5 @@ public class RoomsController(IRoomService roomService) : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
+
 }
