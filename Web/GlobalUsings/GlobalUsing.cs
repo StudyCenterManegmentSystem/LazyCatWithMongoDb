@@ -20,3 +20,6 @@ global using MongoDB.Bson.Serialization;
 global using MongoDB.Bson.Serialization.Serializers;
 global using Web.HandleException;
 global using Microsoft.AspNetCore.Authorization;
+global using Application.Dtos.FanDtos;
+global using Application.Dtos.RoomsDto;
+global using Application.Dtos.RoomsDtol;
