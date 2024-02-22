@@ -36,7 +36,7 @@ public class FanService(IUnitOfWork unitOfWork) : IFanService
     }
 
 
-        public async Task<List<FanDto>> GetAllAsync()
+    public async Task<List<FanDto>> GetAllAsync()
     {
         var fans = await _unitOfWork.FanRepository.GetAllAsync();
         return fans.Select(x => (FanDto)x).ToList();
