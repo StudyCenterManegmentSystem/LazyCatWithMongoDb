@@ -129,8 +129,9 @@ public static class Startup
         #endregion
 
         #region Custom DI Services
-
+        services.AddTransient<IAdminService, AdminService>();
         services.AddTransient<IIdentityService, IdentityService>();
+        services.AddTransient<ITeacherService, TeacherService>();
         #endregion
 
         #region Services and Repositories

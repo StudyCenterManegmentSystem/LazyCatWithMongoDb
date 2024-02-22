@@ -9,96 +9,6 @@ public class AuthenticationController(IIdentityService identityService) : Contro
 {
     private readonly IIdentityService _identityService = identityService;
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register(RegisterRequest request)
-    {
-        try
-        {
-            var response = await _identityService.RegisterAsync(request);
-            return response.Success ? Ok(response) : Conflict(response);
-        }
-        catch(CustomException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (ValidationException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
-        }
-    }
-
-    [HttpPost("register-user")]
-    public async Task<IActionResult> RegisterUser(RegistrationRequest request)
-    {
-        try
-        {
-            var response = await _identityService.RegisterUserAsync(request);
-            return response.Success ? Ok(response) : Conflict(response);
-        }
-        catch (CustomException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (ValidationException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
-        }
-    }
-
-    [HttpPost("create-admin")]
-    [Authorize(Roles = "SuperAdmin")]
-
-    public async Task<IActionResult> CreateAdmin(RegistrationRequest request)
-    {
-        try
-        {
-            var response = await _identityService.RegisterAdminAsync(request);
-            return response.Success ? Ok(response) : Conflict(response);
-        }
-        catch (CustomException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (ValidationException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
-        }
-    }
-
-    [HttpPost("create-super-admin")]
-    [Authorize(Roles = "SuperAdmin")]
-    public async Task<IActionResult> CreateSuperAdmin(RegistrationRequest request)
-    {
-        try
-        {
-            var response = await _identityService.RegisterSuperAdminAsync(request);
-            return response.Success ? Ok(response) : Conflict(response);
-        }
-        catch (CustomException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (ValidationException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
-        }
-    }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest request)
@@ -138,7 +48,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
     }
 
 
-    [HttpDelete("logout")]
+    [HttpPatch("logout")]
     public async Task<IActionResult> Logout(LoginRequest request)
     {
         try
