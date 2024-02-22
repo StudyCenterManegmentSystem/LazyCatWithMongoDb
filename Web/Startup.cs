@@ -131,7 +131,6 @@ public static class Startup
         #region Custom DI Services
 
         services.AddTransient<IIdentityService, IdentityService>();
-
         #endregion
 
         #region Services and Repositories
@@ -139,6 +138,7 @@ public static class Startup
 
         //Services
         services.AddScoped<IRoomService, RoomService>();
+        services.AddScoped<IFanService, FanService>();
         #endregion
     }
 

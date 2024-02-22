@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Entity.Rooms;
+﻿using Domain.Entities.Entity.Fans;
+using Domain.Entities.Entity.Rooms;
 
 namespace Application.Commens.Helpers;
 
@@ -14,4 +15,11 @@ public static class Validator
         && room.Sigimi >= 10
         && room.Sigimi <= 30
         && room.Qavat >= 1;
+    public static bool IsExist(this Fan fan, IEnumerable<Fan> fans)
+       => fans.Any(f => f.FanName == fan.FanName
+           && f.FanDescription == fan.FanDescription);
+
+    public static bool IsValid(this Fan fan)
+        => !string.IsNullOrEmpty(fan.FanName)
+        && !string.IsNullOrEmpty(fan.FanDescription);
 }
