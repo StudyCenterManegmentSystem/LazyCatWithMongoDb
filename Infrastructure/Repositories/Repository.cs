@@ -38,7 +38,7 @@ namespace Infrastructure.Repositories
             await _collection.DeleteOneAsync(filter);
         }
 
-        public async Task<IQueryable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             var entities = await _collection.FindAsync(_ => true);
             return entities.ToEnumerable().AsQueryable();

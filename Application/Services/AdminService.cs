@@ -4,18 +4,22 @@ using Application.Commens.Constants;
 using Application.Commens.Helpers;
 using Application.Dtos.TeacherDto;
 using Domain.Entities.Entity.Teachers;
+using Infrastructure.Interfaces;
+using MongoDB.Bson;
 
 namespace Application.Services;
 
 public class AdminService (UserManager<Teacher> userManager,
                            IConfiguration configuration,
                            RoleManager<ApplicationRole> roleManager,
-                           UserManager<ApplicationUser> userManager1) : IAdminService
+                           UserManager<ApplicationUser> userManager1, 
+                           IUnitOfWork unitOfWork) : IAdminService
 {
     private readonly UserManager<Teacher> _userManager = userManager;
     private readonly IConfiguration _configuration = configuration;
     private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
     private readonly UserManager<ApplicationUser> _userManager1 = userManager1;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task DeleteAccountAsync(TeacherLoginRequest request)
     {
@@ -51,11 +55,24 @@ public class AdminService (UserManager<Teacher> userManager,
         if (!result.Succeeded)
             throw new ValidationException("Failed to delete user");
     }
-
     public async Task<TeacherRegisterResponse> RegisterTeacherAsync(TeacherRegisterRequest request)
     {
         try
         {
+            foreach (var id in request.FanIds)
+            {
+                if (!ObjectId.TryParse(id, out ObjectId objectId))
+                {
+                    throw new InvalidDataException("Fan identifikatorlari ObjectId ko'rinishida emas");
+                }
+
+                var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
+                if (fan is null)
+                {
+                    throw new NotFoundException("Bunday fanlar mavjud emas");
+                }
+            }
+
             var userExists = await _userManager.FindByEmailAsync(request.Email);
             if (userExists != null)
                 throw new CustomException("Teacher already exists");
@@ -81,13 +98,17 @@ public class AdminService (UserManager<Teacher> userManager,
             if (teacher != null)
                 await _userManager.AddToRoleAsync(teacher, IdentityRoles.TEACHER);
 
-            return new TeacherRegisterResponse { Success = true, Message = "Teacher registered successfully" };
+            return new TeacherRegisterResponse { Success = true, Message = "Teacher registered successfully", TeacherId =teacher.Id.ToString() };
         }
         catch (CustomException ex)
         {
-            return new TeacherRegisterResponse { Success = false, Message = ex.Message };
+            return new TeacherRegisterResponse { Success = false, Message = ex.Message  };
         }
         catch (ValidationException ex)
+        {
+            return new TeacherRegisterResponse { Success = false, Message = ex.Message };
+        }
+        catch (InvalidDataException ex)
         {
             return new TeacherRegisterResponse { Success = false, Message = ex.Message };
         }
@@ -96,7 +117,6 @@ public class AdminService (UserManager<Teacher> userManager,
             return new TeacherRegisterResponse { Success = false, Message = ex.Message };
         }
     }
-
 
     public async Task<RegisterResponse> RegisterAdminAsync(RegistrationRequest request)
     {

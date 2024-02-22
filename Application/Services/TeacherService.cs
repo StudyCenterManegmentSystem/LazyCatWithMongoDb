@@ -1,17 +1,22 @@
 ﻿using Amazon.Runtime.Internal;
 using Application.Commens.Helpers;
 using Application.Dtos.TeacherDto;
+using Domain.Entities.Entity.Fans;
 using Domain.Entities.Entity.Teachers;
+using Infrastructure.Interfaces;
+using System.Collections.Immutable;
 
 namespace Application.Services
 {
     public class TeacherService(UserManager<Teacher> userManager,
                                 IConfiguration configuration,
-                                RoleManager<ApplicationRole> roleManager) : ITeacherService
+                                RoleManager<ApplicationRole> roleManager, 
+                                IUnitOfWork unitOfWork) : ITeacherService
     {
         private readonly UserManager<Teacher> _userManager = userManager;
         private readonly IConfiguration _configuration = configuration;
         private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public async Task<TeacherLoginResponse> LoginAsync(TeacherLoginRequest request)
         {
@@ -109,5 +114,74 @@ namespace Application.Services
 
             await _userManager.RemoveAuthenticationTokenAsync(user, _configuration["Jwt:Issuer"] ?? "", "Token");
         }
+
+        public async Task<IEnumerable<TeacherWithFansRequest>> GetAllTeachersWithFanAsync()
+        {
+            var teachers =  _userManager.Users.ToList();
+
+            var teachersWithFans = new List<TeacherWithFansRequest>();
+
+            foreach (var teacher in teachers)
+            {
+                List<Fan> fans = new();
+                var teacherWithFans = new TeacherWithFansRequest
+                {
+                    Teacher = teacher,
+                    Fans = fans
+                };
+
+                var associatedFanIds = teacher.FanIds;
+
+                foreach (var fanId in associatedFanIds)
+                {
+                    var fan = await _unitOfWork.FanRepository.GetByIdAsync(fanId);
+                    if (fan != null)
+                    {
+                        teacherWithFans.Fans.Add(fan);
+                    }
+                    else
+                    {
+                        throw new NotFoundException("Fan topilmadi");
+                    }
+                }
+
+                teachersWithFans.Add(teacherWithFans);
+            }
+
+            return teachersWithFans;
+        }
+
+        public async Task<IEnumerable<TeacherWithFansRequest>> GetAllByIdTeacherWithFanAsync(string id)
+        {
+            var teacher = await _userManager.FindByIdAsync(id);
+            if (teacher == null)
+            {
+                throw new NotFoundException("Teacher topilmadi");
+            }
+
+            var teacherWithFans = new TeacherWithFansRequest
+            {
+                Teacher = teacher,
+                Fans = new List<Fan>()
+            };
+
+            var associatedFanIds = teacher.FanIds;
+
+            foreach (var fanId in associatedFanIds)
+            {
+                var fan = await _unitOfWork.FanRepository.GetByIdAsync(fanId);
+                if (fan != null)
+                {
+                    teacherWithFans.Fans.Add(fan);
+                }
+                else
+                {
+                    throw new NotFoundException("Fan topilmadi");
+                }
+            }
+
+            return new List<TeacherWithFansRequest> { teacherWithFans };
+        }
+
     }
 }
