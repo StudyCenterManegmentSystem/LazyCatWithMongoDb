@@ -173,7 +173,7 @@ public static class Startup
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        var roles = new[] { "Admin", "User", "SuperAdmin" };
+        var roles = new[] { "Admin", "User", "SuperAdmin", "Teacher" };
 
         foreach (var role in roles)
         {

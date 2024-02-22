@@ -17,6 +17,10 @@ public class AdminController(IAdminService adminService) : ControllerBase
             var response = await _adminService.RegisterTeacherAsync(request);
             return response.Success ? Ok(response) : Conflict(response);
         }
+        catch (InvalidDataException ex)
+        {
+            return BadRequest(ex.Message);
+        }
         catch (CustomException ex)
         {
             return BadRequest(ex.Message);
@@ -144,4 +148,6 @@ public class AdminController(IAdminService adminService) : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
+
+
 }
