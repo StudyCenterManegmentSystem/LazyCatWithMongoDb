@@ -3,4 +3,5 @@
 public interface IUnitOfWork
 {
     IRoomInterface RoomInterface { get; }
+    IFanRepository FanRepository { get; }
 }
