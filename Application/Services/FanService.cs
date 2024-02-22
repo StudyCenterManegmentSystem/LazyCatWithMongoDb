@@ -38,7 +38,6 @@ public class FanService(IUnitOfWork unitOfWork) : IFanService
         var fans = await _unitOfWork.FanRepository.GetAllAsync();
         return fans.Select(x => (FanDto)x).ToList();
     }
-
     public async Task<FanDto> GetByIdAsync(string id)
     {
         var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
