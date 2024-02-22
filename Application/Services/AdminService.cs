@@ -4,18 +4,21 @@ using Application.Commens.Constants;
 using Application.Commens.Helpers;
 using Application.Dtos.TeacherDto;
 using Domain.Entities.Entity.Teachers;
+using Infrastructure.Interfaces;
 
 namespace Application.Services;
 
 public class AdminService (UserManager<Teacher> userManager,
                            IConfiguration configuration,
                            RoleManager<ApplicationRole> roleManager,
-                           UserManager<ApplicationUser> userManager1) : IAdminService
+                           UserManager<ApplicationUser> userManager1, 
+                           IUnitOfWork unitOfWork) : IAdminService
 {
     private readonly UserManager<Teacher> _userManager = userManager;
     private readonly IConfiguration _configuration = configuration;
     private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
     private readonly UserManager<ApplicationUser> _userManager1 = userManager1;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task DeleteAccountAsync(TeacherLoginRequest request)
     {
@@ -70,7 +73,15 @@ public class AdminService (UserManager<Teacher> userManager,
                 
                
             };
+            foreach (var id in request.FanIds)
+            {
+                var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
+                if(fan is null)
+                {
+                    throw new NotFoundException("Bunday fanlar mavjud emas ");
+                }
 
+            }
             var createUserResult = await _userManager.CreateAsync(teacher, request.Password);
             if (!createUserResult.Succeeded)
                 throw new ValidationException($"Create teacher failed {createUserResult?.Errors?.First()?.Description}");
@@ -96,7 +107,6 @@ public class AdminService (UserManager<Teacher> userManager,
             return new TeacherRegisterResponse { Success = false, Message = ex.Message };
         }
     }
-
 
     public async Task<RegisterResponse> RegisterAdminAsync(RegistrationRequest request)
     {

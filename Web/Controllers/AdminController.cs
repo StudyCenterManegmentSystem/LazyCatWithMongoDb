@@ -25,6 +25,10 @@ public class AdminController(IAdminService adminService) : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
         catch (Exception ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
