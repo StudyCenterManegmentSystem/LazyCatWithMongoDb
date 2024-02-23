@@ -9,13 +9,13 @@ using MongoDB.Bson;
 
 namespace Application.Services;
 
-public class AdminService (UserManager<Domain.Entities.Entity.Teachers.TeacherDto> userManager,
+public class AdminService (UserManager<Domain.Entities.Entity.Teachers.Teacher> userManager,
                            IConfiguration configuration,
                            RoleManager<ApplicationRole> roleManager,
                            UserManager<ApplicationUser> userManager1, 
                            IUnitOfWork unitOfWork) : IAdminService
 {
-    private readonly UserManager<Domain.Entities.Entity.Teachers.TeacherDto> _userManager = userManager;
+    private readonly UserManager<Domain.Entities.Entity.Teachers.Teacher> _userManager = userManager;
     private readonly IConfiguration _configuration = configuration;
     private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
     private readonly UserManager<ApplicationUser> _userManager1 = userManager1;
@@ -77,7 +77,7 @@ public class AdminService (UserManager<Domain.Entities.Entity.Teachers.TeacherDt
             if (userExists != null)
                 throw new CustomException("Teacher already exists");
 
-            var teacher = new Domain.Entities.Entity.Teachers.TeacherDto
+            var teacher = new Domain.Entities.Entity.Teachers.Teacher
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,

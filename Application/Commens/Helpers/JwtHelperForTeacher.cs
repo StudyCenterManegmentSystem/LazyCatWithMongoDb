@@ -4,7 +4,7 @@ namespace Application.Commens.Helpers;
 
 public static class JwtHelperForTeacher
 {
-    public static string GenerateJwtToken(TeacherDto teacher, IList<string> roles, IConfiguration configuration)
+    public static string GenerateJwtToken(Teacher teacher, IList<string> roles, IConfiguration configuration)
     {
         var claims = new List<Claim>
         {

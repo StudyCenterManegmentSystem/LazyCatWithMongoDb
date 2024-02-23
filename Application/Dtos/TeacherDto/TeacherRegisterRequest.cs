@@ -24,7 +24,7 @@ namespace Application.Dtos.TeacherDto
 
         public static implicit operator TeacherDto(TeacherRegisterRequest teacherRequest)
         {
-            return new Domain.Entities.Entity.Teachers.TeacherDto
+            return new Domain.Entities.Entity.Teachers.Teacher
             {
                 Email = teacherRequest.Email,
                 FirstName = teacherRequest.FirstName,

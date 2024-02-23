@@ -97,9 +97,9 @@ public static class Startup
                 .AddRoleManager<RoleManager<ApplicationRole>>()
                 .AddDefaultTokenProviders();
 
-        services.ConfigureMongoDbIdentity<TeacherDto, ApplicationRole, Guid>(mongoDbIdentityConfig)
-                .AddUserManager<UserManager<TeacherDto>>()
-                .AddSignInManager<SignInManager<TeacherDto>>()
+        services.ConfigureMongoDbIdentity<Teacher, ApplicationRole, Guid>(mongoDbIdentityConfig)
+                .AddUserManager<UserManager<Teacher>>()
+                .AddSignInManager<SignInManager<Teacher>>()
                 .AddRoleManager<RoleManager<ApplicationRole>>()
                 .AddDefaultTokenProviders();
 

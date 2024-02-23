@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.Entity.Teachers;
 [CollectionName("teachers")]
-public class TeacherDto : MongoIdentityUser<Guid>
+public class Teacher : MongoIdentityUser<Guid>
 {
     [Required, StringLength(100)]
     public string FirstName { get; set; } = string.Empty;
