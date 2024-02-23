@@ -2,7 +2,7 @@
 
 namespace Web.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/rooms")]
 [ApiController]
 [Authorize(Roles = "Teacher")]
 public class RoomsController(IRoomService roomService) : ControllerBase
