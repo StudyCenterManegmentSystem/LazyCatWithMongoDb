@@ -9,7 +9,6 @@ namespace Infrastructure.Repositories
         {
             _collection = collection ?? throw new ArgumentNullException(nameof(collection));
         }
-
         public async Task AddAsync(TEntity entity)
         {
             if (entity == null)

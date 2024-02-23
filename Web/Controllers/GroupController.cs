@@ -101,5 +101,23 @@ namespace Web.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
             }
         }
+        [HttpDelete("delete-guruh/{id}")]
+
+        public async Task<IActionResult> DeleteAsync(string id)
+        {
+            try
+            {
+                 await _gruopInterface.DeleteAsync(id);
+                return Ok("Guruh mofaqiyatli o'chirildi");
+            }
+            catch (NotFoundException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
+            }
+        }
     }
 }

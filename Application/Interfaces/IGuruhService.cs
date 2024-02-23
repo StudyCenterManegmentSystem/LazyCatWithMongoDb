@@ -9,4 +9,5 @@ public interface IGuruhService
     Task<Guruh> UpdateAsync(UpdateGroupDto updateGroupDto);
     Task<List<GuruhReturnDto>> GetAllGuruhAsync();
     Task<GuruhReturnDto> GetByIdAsync(string id);
+    Task DeleteAsync(string id);
 }
