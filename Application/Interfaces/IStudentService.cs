@@ -8,5 +8,7 @@ public interface IStudentService
     Task<Student> AddStudentAsync(AddStudentDto dto);
     Task<Student> UpdateStudentAsync(UpdateStudentDto dto);
     Task DeleteStudentAsync(string studentId);
+    Task<List<StudentReturnDto>> GetAllStudent();
+    Task<List<StudentReturnDto>> GetByIdStudent(string id);
 }
 
