@@ -111,7 +111,7 @@ namespace Application.Services
 
         public async Task<IEnumerable<TeacherWithFansRequest>> GetAllTeachersWithFanAsync()
         {
-            var teachers =  _userManager.Users.ToList();
+            var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
 
             var teachersWithFans = new List<TeacherWithFansRequest>();
 

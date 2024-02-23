@@ -4,13 +4,13 @@
 
 namespace Application.Services;
 
-public class AdminService (UserManager<Domain.Entities.Entity.Teachers.Teacher> userManager,
+public class AdminService (UserManager<Teacher> userManager,
                            IConfiguration configuration,
                            RoleManager<ApplicationRole> roleManager,
                            UserManager<ApplicationUser> userManager1, 
                            IUnitOfWork unitOfWork) : IAdminService
 {
-    private readonly UserManager<Domain.Entities.Entity.Teachers.Teacher> _userManager = userManager;
+    private readonly UserManager<Teacher> _userManager = userManager;
     private readonly IConfiguration _configuration = configuration;
     private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
     private readonly UserManager<ApplicationUser> _userManager1 = userManager1;
@@ -199,7 +199,7 @@ public class AdminService (UserManager<Domain.Entities.Entity.Teachers.Teacher> 
 
     public async Task<IEnumerable<TeacherWithFansRequest>> GetAllTeachersWithFanAsync()
     {
-        var teachers = _userManager.Users.ToList();
+        var teachers = await _userManager.GetUsersInRoleAsync("Teacher"); ;
 
         var teachersWithFans = new List<TeacherWithFansRequest>();
 

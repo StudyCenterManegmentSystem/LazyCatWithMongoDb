@@ -2,15 +2,17 @@
 
 namespace Application.Services;
 
-public class FanService(IUnitOfWork unitOfWork) : IFanService
+public class FanService(IUnitOfWork unitOfWork, 
+                        UserManager<Teacher> userManager) : IFanService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly UserManager<Teacher> _userManager = userManager;
 
     public async Task AddAsync(AddFanDto fanDto)
     {
         if (fanDto == null)
         {
-            throw new ValidationException("Fan cannot be null");
+            throw new ArgumentNullException("Fan cannot be null");
         }
         var fan = (Fan)fanDto;
         var fanList = await _unitOfWork.FanRepository.GetAllAsync();
@@ -27,25 +29,126 @@ public class FanService(IUnitOfWork unitOfWork) : IFanService
 
     public async Task DeleteAsync(string id)
     {
+        var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
+        if (fan is null)
+        {
+            throw new NotFoundException("Fan topilmadi");
+        }
         await _unitOfWork.FanRepository.DeleteAsync(id);
+
     }
-
-
     public async Task<List<FanDto>> GetAllAsync()
     {
         var fans = await _unitOfWork.FanRepository.GetAllAsync();
+        if(fans is null)
+        {
+            throw new NotFoundException("Hech qanday fan mavjud emas");
+        }
         return fans.Select(x => (FanDto)x).ToList();
     }
+
+    public async Task<List<FanTeachersDto>> GetAllFanTeachers()
+    {
+        var teachers = await _userManager.GetUsersInRoleAsync("Teacher"); // Assuming "Teacher" is the role for teachers
+        var fans = await _unitOfWork.FanRepository.GetAllAsync();
+
+        var fanTeachersDtoList = new List<FanTeachersDto>();
+
+        foreach (var fan in fans)
+        {
+            var fanTeachersDto = new FanTeachersDto
+            {
+                Id = fan.Id,
+                FanName = fan.FanName,
+                FanDescription = fan.FanDescription,
+                Teachers = new List<TeacherReturnDto>()
+                
+            };
+
+            foreach (var teacher in teachers)
+            {
+                var fanids = teacher.FanIds;
+                if (fanids.Contains(fan.Id))
+                {
+                    fanTeachersDto.Teachers.Add(new TeacherReturnDto
+                    {
+                        TeacherId = teacher.Id.ToString(),
+                        Email = teacher.Email,
+                        FirstName = teacher.FirstName,
+                        LastName = teacher.LastName
+                    });
+                }
+            
+            }
+
+            fanTeachersDtoList.Add(fanTeachersDto);
+        }
+
+        return fanTeachersDtoList;
+    }
+
+    public async Task<FanTeachersDto> GetByIdFanWithTeachers(string id)
+    {
+        var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
+
+        if (fan == null)
+        {
+            throw new NotFoundException("Fan topilmadi");
+        }
+
+
+        var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
+
+        var fanTeachersDto = new FanTeachersDto
+        {
+            Id = fan.Id,
+            FanName = fan.FanName,
+            FanDescription = fan.FanDescription,
+            Teachers = new List<TeacherReturnDto>()
+        };
+
+        foreach (var teacher in teachers)
+        {
+            var fanids = teacher.FanIds;
+            if (fanids.Contains(fan.Id))
+            {
+                fanTeachersDto.Teachers.Add(new TeacherReturnDto
+                {
+                    TeacherId = teacher.Id.ToString(),
+                    Email = teacher.Email,
+                    FirstName = teacher.FirstName,
+                    LastName = teacher.LastName
+                });
+            }
+        }
+
+        return fanTeachersDto;
+    }
+
     public async Task<FanDto> GetByIdAsync(string id)
     {
         var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
+        if(fan is null)
+        {
+            throw new NotFoundException("Fan topilmadi");
+        }
         return fan;
-    }
+    }  
+
     public async Task UpdateAsync(FanDto fanDto)
     {
-        var fans = await _unitOfWork.FanRepository.GetAllAsync();
-        var fanmap = (Fan)fanDto;
-        await _unitOfWork.FanRepository.UpdateAsync(fanmap);
+        if (fanDto == null)
+        {
+            throw new ArgumentNullException("Fan cannot be null");
+        }
+        var fan = (Fan)fanDto;
+
+        if (!fan.IsValid())
+        {
+            throw new CustomException("Fan is not valid");
+        }
+    
+        await _unitOfWork.FanRepository.UpdateAsync(fan);
 
     }
 
