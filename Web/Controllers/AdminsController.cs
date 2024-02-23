@@ -163,7 +163,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
     }
 
 
-    [HttpGet("all-with-fans")]
+    [HttpGet("all-teachers-with-fans")]
     public async Task<ActionResult<IEnumerable<TeacherWithFansRequest>>> GetAllTeachersWithFans()
     {
         try
@@ -183,7 +183,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
     }
 
 
-    [HttpGet("get-by-id-teacher/{id}")]
+    [HttpGet("get-by-id-teacher-with-fans/{id}")]
     public async Task<ActionResult<IEnumerable<TeacherWithFansRequest>>> GetAllTeachersWithFans(string id)
     {
         try

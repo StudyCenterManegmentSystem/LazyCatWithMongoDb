@@ -1,5 +1,8 @@
 ﻿
 
+using Domain.Entities.Entity.Groups;
+using MongoDB.Driver;
+
 namespace Web;
 
 public static class Startup
@@ -67,7 +70,11 @@ public static class Startup
         var mongoDbSettings = configuration.GetSection("MongoDbSettings");
         var connectionString = mongoDbSettings["ConnectionString"];
         var databaseName = mongoDbSettings["DatabaseName"];
+        var client = new MongoClient(connectionString);
+        var database = client.GetDatabase(databaseName);
+        services.AddSingleton<IMongoCollection<Guruh>>(database.GetCollection<Guruh>("Guruhlar"));
         services.AddScoped(m => new ApplicationDbContext(connectionString!, databaseName!));
+
         #endregion
 
         #region Identity
@@ -139,7 +146,11 @@ public static class Startup
         services.AddScoped<IFanService, FanService>();
         services.AddTransient<IAdminService, AdminService>();
         services.AddTransient<ITeacherService, TeacherService>();
-      
+        services.AddTransient<IGuruhInterface, GuruhRepository>();
+        services.AddTransient<IGuruhService, GuruhService>();
+
+
+
         #endregion
     }
 

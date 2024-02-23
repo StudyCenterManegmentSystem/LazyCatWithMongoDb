@@ -4,4 +4,6 @@ public interface IUnitOfWork
 {
     IRoomInterface RoomInterface { get; }
     IFanRepository FanRepository { get; }
+    IGuruhInterface GuruhInterface { get; }
+    
 }

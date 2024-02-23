@@ -23,14 +23,15 @@ public class ApplicationDbContext
     public IMongoCollection<Fan> Fans =>
         _database.GetCollection<Fan>("fanlar");
 
-    public IMongoCollection<Group> Groups =>
-        _database.GetCollection<Group>("grouplar");
+    public IMongoCollection<Guruh> Guruhlar =>
+        _database.GetCollection<Guruh>("Guruhlar");
 
     public IMongoCollection<Payment> Payments =>
         _database.GetCollection<Payment>("tolovlar");
 
     public IMongoCollection<Room> Rooms =>
         _database.GetCollection<Room>("xonalar");
+
 
     public IMongoCollection<Student> Students =>
         _database.GetCollection<Student>("talabalar");
