@@ -25,6 +25,6 @@ public class ApplicationDbContext
     public IMongoCollection<Room> Rooms =>
         _database.GetCollection<Room>("xonalar");
     public IMongoCollection<Student> Students =>
-        _database.GetCollection<Student>("talabalar");
+        _database.GetCollection<Student>("Talabalar");
 
 }

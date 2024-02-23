@@ -1,6 +1,8 @@
 ﻿
 
 using Domain.Entities.Entity.Groups;
+using Domain.Entities.Entity.Students;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
 namespace Web;
@@ -73,6 +75,8 @@ public static class Startup
         var client = new MongoClient(connectionString);
         var database = client.GetDatabase(databaseName);
         services.AddSingleton<IMongoCollection<Guruh>>(database.GetCollection<Guruh>("Guruhlar"));
+        services.AddSingleton<IMongoCollection<Student>>(database.GetCollection<Student>("Talabalar"));
+
         services.AddScoped(m => new ApplicationDbContext(connectionString!, databaseName!));
 
         #endregion
@@ -148,6 +152,8 @@ public static class Startup
         services.AddTransient<ITeacherService, TeacherService>();
         services.AddTransient<IGuruhInterface, GuruhRepository>();
         services.AddTransient<IGuruhService, GuruhService>();
+        services.AddTransient<IStudentInterface, StudentRepository>();
+        services.AddTransient<IStudentService, StudentService>();
 
 
 
