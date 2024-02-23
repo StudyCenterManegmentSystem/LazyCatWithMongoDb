@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities.Entity.Teachers;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Entities.Entity.Teachers;
 [CollectionName("teachers")]
 public class Teacher : MongoIdentityUser<Guid>
 {
