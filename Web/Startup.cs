@@ -137,6 +137,9 @@ public static class Startup
         //Services
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IFanService, FanService>();
+        services.AddTransient<IAdminService, AdminService>();
+        services.AddTransient<ITeacherService, TeacherService>();
+      
         #endregion
     }
 
