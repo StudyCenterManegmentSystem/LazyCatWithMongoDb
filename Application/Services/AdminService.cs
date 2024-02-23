@@ -58,7 +58,7 @@ public class AdminService (UserManager<Teacher> userManager,
             {
                 if (!ObjectId.TryParse(id, out ObjectId objectId))
                 {
-                    throw new InvalidDataException("Fan identifikatorlari ObjectId ko'rinishida emas");
+                    throw new CustomException("Fan identifikatorlari ObjectId ko'rinishida emas");
                 }
 
                 var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
@@ -72,15 +72,13 @@ public class AdminService (UserManager<Teacher> userManager,
             if (userExists != null)
                 throw new CustomException("Teacher already exists");
 
-            var teacher = new Domain.Entities.Entity.Teachers.Teacher
+            var teacher = new Teacher
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
                 UserName = request.Email,
                 FanIds = request.FanIds
-                
-               
             };
 
             var createUserResult = await _userManager.CreateAsync(teacher, request.Password);

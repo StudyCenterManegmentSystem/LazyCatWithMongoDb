@@ -3,7 +3,7 @@
 
 namespace Web.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/admin")]
 [ApiController]
 public class AdminController(IAdminService adminService) : ControllerBase
 {
@@ -29,6 +29,7 @@ public class AdminController(IAdminService adminService) : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+     
         catch (NotFoundException ex)
         {
             return NotFound(ex.Message);
@@ -95,6 +96,10 @@ public class AdminController(IAdminService adminService) : ControllerBase
         {
             return NotFound(ex.Message);
         }
+        catch(ValidationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
         catch (CustomException ex)
         {
             return BadRequest(ex.Message);
@@ -121,6 +126,10 @@ public class AdminController(IAdminService adminService) : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+        catch (ValidationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
         catch (Exception ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
@@ -140,6 +149,10 @@ public class AdminController(IAdminService adminService) : ControllerBase
             return NotFound(ex.Message);
         }
         catch (CustomException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (ValidationException ex)
         {
             return BadRequest(ex.Message);
         }
@@ -164,7 +177,7 @@ public class AdminController(IAdminService adminService) : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, "An error occurred while fetching teachers with fans.");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message} => An error occurred while fetching teachers with fans.");
         }
 
     }
@@ -184,7 +197,7 @@ public class AdminController(IAdminService adminService) : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, "An error occurred while fetching teachers with fans.");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message} => An error occurred while fetching teachers with fans.");
         }
     }
 
