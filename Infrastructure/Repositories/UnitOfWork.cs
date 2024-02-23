@@ -11,10 +11,13 @@ public class UnitOfWork : IUnitOfWork
         RoomInterface = new RoomRepository(_dbContext.Rooms);
         FanRepository = new FanRepository(_dbContext.Fans);
         GuruhInterface = new GuruhRepository(_dbContext.Guruhlar);
+        StudentInterface = new StudentRepository(_dbContext.Students);
     }
     private readonly ApplicationDbContext _dbContext;
     public IRoomInterface RoomInterface { get; }
 
     public IFanRepository FanRepository { get; }
     public IGuruhInterface GuruhInterface { get; }
+
+    public IStudentInterface StudentInterface { get; }
 }

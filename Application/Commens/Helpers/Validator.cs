@@ -2,6 +2,7 @@
 
 
 using Domain.Entities.Entity.Groups;
+using Domain.Entities.Entity.Students;
 
 namespace Application.Commens.Helpers;
 
@@ -48,6 +49,20 @@ public static class Validator
                !string.IsNullOrEmpty(group.Duration) &&
                group.Price > 0 &&
                group.Start <= group.End; 
+    }
+
+    public static bool IsExist(this Student student, IEnumerable<Student> students)
+    {
+        return students.Any(s => s.FirstName == student.FirstName &&
+                                 s.LastName == student.LastName &&
+                                 s.PhoneNumber == student.PhoneNumber);
+    }
+
+    public static bool IsValid(this Student student)
+    {
+        return !string.IsNullOrEmpty(student.FirstName) &&
+               !string.IsNullOrEmpty(student.LastName) &&
+               !string.IsNullOrEmpty(student.PhoneNumber);
     }
 
 }
