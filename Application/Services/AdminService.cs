@@ -113,6 +113,7 @@ public class AdminService (UserManager<Teacher> userManager,
 
     public async Task<RegisterResponse> RegisterAdminAsync(RegistrationRequest request)
     {
+        
         try
         {
             var userExists = await _userManager1.FindByEmailAsync(request.Email);
