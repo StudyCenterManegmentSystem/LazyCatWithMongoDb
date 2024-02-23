@@ -1,10 +1,6 @@
 ﻿
 
-using Domain.Entities.Entity.Fans;
-using Domain.Entities.Entity.Groups;
-using Domain.Entities.Entity.Payments;
-using Domain.Entities.Entity.Rooms;
-using Domain.Entities.Entity.Students;
+
 
 namespace Infrastructure.Data;
 

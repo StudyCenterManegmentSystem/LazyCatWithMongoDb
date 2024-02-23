@@ -2,7 +2,6 @@
 using Application.Dtos.RoomsDto;
 using Application.Dtos.RoomsDtol;
 using Domain.Entities.Entity.Rooms;
-using Infrastructure.Interfaces;
 
 namespace Application.Services;
 

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Entities.Entity.Rooms;
+﻿namespace Domain.Entities.Entity.Rooms;
 
 public class Room : BaseEntity
 {

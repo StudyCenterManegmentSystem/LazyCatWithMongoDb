@@ -1,6 +1,5 @@
 ﻿global using Application.Commens.Exceptions;
 global using Application.Common.Helpers;
-global using Application.Dtos;
 global using Application.Interfaces;
 global using Domain.Entities;
 global using Domain.Models;
@@ -11,3 +10,19 @@ global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text;
 global using Microsoft.IdentityModel.Tokens;
+
+global using Application.Commens.Constants;
+global using Application.Dtos.AuthDto;
+global using Application.Dtos.TeacherDto;
+global using Domain.Entities.Entity.Teachers;
+global using Infrastructure.Interfaces;
+global using MongoDB.Bson;
+global using Application.Commens.Helpers;
+global using Application.Dtos.FanDtos;
+global using Domain.Entities.Entity.Fans;
+global using Application.Commens.Helpers;
+global using Application.Dtos.RoomsDto;
+global using Application.Dtos.RoomsDtol;
+global using Domain.Entities.Entity.Rooms;
+global using Application.Commens.Helpers;
+global using Domain.Entities.Entity.Fans;

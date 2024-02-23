@@ -1,4 +1,5 @@
-﻿using Application.Dtos.TeacherDto;
+﻿using Application.Dtos.AuthDto;
+using Application.Dtos.TeacherDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;

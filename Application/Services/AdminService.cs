@@ -1,11 +1,5 @@
 ﻿
 
-using Application.Commens.Constants;
-using Application.Commens.Helpers;
-using Application.Dtos.TeacherDto;
-using Domain.Entities.Entity.Teachers;
-using Infrastructure.Interfaces;
-using MongoDB.Bson;
 
 namespace Application.Services;
 

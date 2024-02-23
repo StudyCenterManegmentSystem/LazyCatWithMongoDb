@@ -1,5 +1,4 @@
-﻿using Domain.Entities.Entity;
-
+﻿
 namespace Infrastructure.Interfaces;
 
 public interface IRepository<TEntity> where TEntity : BaseEntity

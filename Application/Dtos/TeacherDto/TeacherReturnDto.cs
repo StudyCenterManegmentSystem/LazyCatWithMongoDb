@@ -2,7 +2,7 @@
 
 namespace Application.Dtos.TeacherDto
 {
-    public class TeacherDto
+    public class TeacherReturnDto
     {
         public string TeacherId { get; set; } = string.Empty;
 
@@ -18,9 +18,9 @@ namespace Application.Dtos.TeacherDto
         [StringLength(100)]
         public string LastName { get; set; } = string.Empty;
 
-        public static implicit operator TeacherDto(Teacher teacher)
+        public static implicit operator TeacherReturnDto(Teacher teacher)
         {
-            return new TeacherDto
+            return new TeacherReturnDto
             {
                 TeacherId = teacher.Id.ToString(),
                 Email = teacher.Email,

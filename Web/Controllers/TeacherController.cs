@@ -1,5 +1,4 @@
-﻿using Application.Dtos.TeacherDto;
-
+﻿
 namespace Web.Controllers;
 
 [Route("api/[controller]")]

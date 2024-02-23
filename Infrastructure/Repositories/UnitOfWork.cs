@@ -1,6 +1,4 @@
-﻿using Infrastructure.Data;
-using Infrastructure.Interfaces;
-
+﻿
 namespace Infrastructure.Repositories;
 
 public class UnitOfWork : IUnitOfWork

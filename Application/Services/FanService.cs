@@ -1,7 +1,4 @@
-using Application.Commens.Helpers;
-using Application.Dtos.FanDtos;
-using Domain.Entities.Entity.Fans;
-using Infrastructure.Interfaces;
+
 
 namespace Application.Services;
 
