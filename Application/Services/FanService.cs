@@ -29,6 +29,10 @@ public class FanService(IUnitOfWork unitOfWork,
 
     public async Task DeleteAsync(string id)
     {
+        if (!ObjectId.TryParse(id, out ObjectId objectId))
+        {
+            throw new CustomException("Fan identifikatorlari ObjectId ko'rinishida emas");
+        }
         var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
         if (fan is null)
         {
@@ -89,6 +93,10 @@ public class FanService(IUnitOfWork unitOfWork,
 
     public async Task<FanTeachersDto> GetByIdFanWithTeachers(string id)
     {
+        if (!ObjectId.TryParse(id, out ObjectId objectId))
+        {
+            throw new CustomException("Fan identifikatorlari ObjectId ko'rinishida emas");
+        }
         var fan = await _unitOfWork.FanRepository.GetByIdAsync(id);
 
         if (fan == null)
@@ -137,9 +145,19 @@ public class FanService(IUnitOfWork unitOfWork,
 
     public async Task UpdateAsync(FanDto fanDto)
     {
+        var id = fanDto.Id;
+        if (!ObjectId.TryParse(id, out ObjectId objectId))
+        {
+            throw new CustomException("Fan identifikatorlari ObjectId ko'rinishida emas");
+        }
         if (fanDto == null)
         {
             throw new ArgumentNullException("Fan cannot be null");
+        }
+        var fan1 = await _unitOfWork.FanRepository.GetByIdAsync(id);
+        if(fan1 is null)
+        {
+            throw new CustomException("Bunday fan mavjud emas");
         }
         var fan = (Fan)fanDto;
 

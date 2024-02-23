@@ -43,6 +43,10 @@ public class RoomService(IUnitOfWork unitOfWork) : IRoomService
 
     public async Task DeleteAsync(string id)
     {
+        if (!ObjectId.TryParse(id, out ObjectId objectId))
+        {
+            throw new CustomException("Room identifikatorlari ObjectId ko'rinishida emas");
+        }
         try
         {
             await _unitOfWork.RoomInterface.DeleteAsync(id);
@@ -86,6 +90,10 @@ public class RoomService(IUnitOfWork unitOfWork) : IRoomService
 
     public async Task<RoomDto> GetByIdAsync(string id)
     {
+        if (!ObjectId.TryParse(id, out ObjectId objectId))
+        {
+            throw new CustomException("Room identifikatorlari ObjectId ko'rinishida emas");
+        }
         try
         {
             var room = await _unitOfWork.RoomInterface.GetByIdAsync(id);

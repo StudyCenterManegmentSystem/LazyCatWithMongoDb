@@ -16,7 +16,7 @@ public class GuruhService(IUnitOfWork unitOfWork,
         {
             throw new ArgumentNullException(nameof(dto), "Group is null");
         }
-
+     
         var group = (Guruh)dto;
 
         if (!group.IsValid())
@@ -80,6 +80,10 @@ public class GuruhService(IUnitOfWork unitOfWork,
         if (updateGroupDto == null)
         {
             throw new ArgumentNullException(nameof(updateGroupDto), "UpdateGroupDto is null");
+        }
+        if (!ObjectId.TryParse(updateGroupDto.Id, out ObjectId objectId))
+        {
+            throw new CustomException("Fan identifikatorlari ObjectId ko'rinishida emas");
         }
         var guruh = await _unitOfWork.GuruhInterface.GetByIdAsync(updateGroupDto.Id);
         if(guruh is null)
@@ -176,6 +180,10 @@ public class GuruhService(IUnitOfWork unitOfWork,
 
     public async Task<GuruhReturnDto> GetByIdAsync(string id)
     {
+        if (!ObjectId.TryParse(id, out ObjectId objectId))
+        {
+            throw new CustomException("Guruh identifikatorlari ObjectId ko'rinishida emas");
+        }
         var guruh = await _unitOfWork.GuruhInterface.GetByIdAsync(id);
         if(guruh is null)
         {
@@ -205,6 +213,10 @@ public class GuruhService(IUnitOfWork unitOfWork,
 
     public async Task DeleteAsync(string id)
     {
+        if (!ObjectId.TryParse(id, out ObjectId objectId))
+        {
+            throw new CustomException("Guruh identifikatorlari ObjectId ko'rinishida emas");
+        }
         var guruh = await _unitOfWork.GuruhInterface.GetByIdAsync(id);
         if(guruh is null)
         {
