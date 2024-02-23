@@ -1,9 +1,4 @@
-using Application.Commens.Helpers;
-using Application.Dtos.FanDtos;
-using Application.Dtos.TeacherDto;
-using Domain.Entities.Entity.Fans;
-using Domain.Entities.Entity.Teachers;
-using Infrastructure.Interfaces;
+
 
 namespace Application.Services;
 

@@ -1,10 +1,4 @@
-﻿using Amazon.Runtime.Internal;
-using Application.Commens.Helpers;
-using Application.Dtos.TeacherDto;
-using Domain.Entities.Entity.Fans;
-using Domain.Entities.Entity.Teachers;
-using Infrastructure.Interfaces;
-using System.Collections.Immutable;
+﻿
 
 namespace Application.Services
 {

@@ -1,6 +1,4 @@
-﻿using Domain.Entities.Entity.Teachers;
-using Infrastructure.Interfaces;
-using Infrastructure.Repositories;
+﻿
 
 namespace Web;
 
@@ -32,7 +30,7 @@ public static class Startup
 
         services.AddSwaggerGen(options =>
         {
-            options.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            options.SwaggerDoc("v1", new OpenApiInfo { Title = "CRM", Version = "v1" });
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = "JWT Authorization header using the Bearer scheme.",

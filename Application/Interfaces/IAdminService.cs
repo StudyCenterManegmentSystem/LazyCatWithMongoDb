@@ -1,11 +1,4 @@
-﻿using Application.Dtos.TeacherDto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Interfaces;
+﻿namespace Application.Interfaces;
 
 public interface IAdminService
 {
@@ -17,4 +10,7 @@ public interface IAdminService
     Task<RegisterResponse> RegisterAdminAsync(RegistrationRequest request);
 
     Task<RegisterResponse> RegisterSuperAdminAsync(RegistrationRequest request);
+
+    Task<IEnumerable<TeacherWithFansRequest>> GetAllTeachersWithFanAsync();
+    Task<IEnumerable<TeacherWithFansRequest>> GetAllByIdTeacherWithFanAsync(string id);
 }

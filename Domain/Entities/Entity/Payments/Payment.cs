@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace Domain.Entities.Entity.Payments;
 
 public class Payment : BaseEntity

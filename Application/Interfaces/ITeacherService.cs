@@ -1,6 +1,4 @@
-﻿using Application.Dtos.TeacherDto;
-
-namespace Application.Interfaces;
+﻿namespace Application.Interfaces;
 
 public interface ITeacherService
 {

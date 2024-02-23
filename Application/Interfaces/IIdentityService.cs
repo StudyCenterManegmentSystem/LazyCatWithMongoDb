@@ -1,4 +1,6 @@
 ﻿
+using Application.Dtos.AuthDto;
+
 namespace Application.Interfaces;
 
 public interface IIdentityService

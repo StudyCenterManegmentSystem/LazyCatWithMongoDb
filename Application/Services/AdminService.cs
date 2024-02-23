@@ -1,11 +1,6 @@
 ﻿
 
-using Application.Commens.Constants;
-using Application.Commens.Helpers;
-using Application.Dtos.TeacherDto;
-using Domain.Entities.Entity.Teachers;
-using Infrastructure.Interfaces;
-using MongoDB.Bson;
+
 
 namespace Application.Services;
 
@@ -200,5 +195,73 @@ public class AdminService (UserManager<Domain.Entities.Entity.Teachers.Teacher> 
         {
             return new RegisterResponse { Success = false, Message = ex.Message };
         }
+    }
+
+    public async Task<IEnumerable<TeacherWithFansRequest>> GetAllTeachersWithFanAsync()
+    {
+        var teachers = _userManager.Users.ToList();
+
+        var teachersWithFans = new List<TeacherWithFansRequest>();
+
+        foreach (var teacher in teachers)
+        {
+            List<Fan> fans = new();
+            var teacherWithFans = new TeacherWithFansRequest
+            {
+                Teacher = teacher,
+                Fans = fans
+            };
+
+            var associatedFanIds = teacher.FanIds;
+
+            foreach (var fanId in associatedFanIds)
+            {
+                var fan = await _unitOfWork.FanRepository.GetByIdAsync(fanId);
+                if (fan != null)
+                {
+                    teacherWithFans.Fans.Add(fan);
+                }
+                else
+                {
+                    throw new NotFoundException("Fan topilmadi");
+                }
+            }
+
+            teachersWithFans.Add(teacherWithFans);
+        }
+
+        return teachersWithFans;
+    }
+
+    public async Task<IEnumerable<TeacherWithFansRequest>> GetAllByIdTeacherWithFanAsync(string id)
+    {
+        var teacher = await _userManager.FindByIdAsync(id);
+        if (teacher == null)
+        {
+            throw new NotFoundException("Teacher topilmadi");
+        }
+
+        var teacherWithFans = new TeacherWithFansRequest
+        {
+            Teacher = teacher,
+            Fans = new List<Fan>()
+        };
+
+        var associatedFanIds = teacher.FanIds;
+
+        foreach (var fanId in associatedFanIds)
+        {
+            var fan = await _unitOfWork.FanRepository.GetByIdAsync(fanId);
+            if (fan != null)
+            {
+                teacherWithFans.Fans.Add(fan);
+            }
+            else
+            {
+                throw new NotFoundException("Fan topilmadi");
+            }
+        }
+
+        return new List<TeacherWithFansRequest> { teacherWithFans };
     }
 }

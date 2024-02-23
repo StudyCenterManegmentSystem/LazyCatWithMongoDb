@@ -1,7 +1,5 @@
 
 
-using Application.Commens.Constants;
-using Application.Dtos.FanDtos;
 
 namespace Web.Controllers;
 [ApiController]

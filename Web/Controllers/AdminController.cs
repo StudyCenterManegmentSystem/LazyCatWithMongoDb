@@ -1,4 +1,4 @@
-﻿using Application.Dtos.TeacherDto;
+﻿
 
 
 namespace Web.Controllers;
@@ -148,6 +148,46 @@ public class AdminController(IAdminService adminService) : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
+
+
+    [HttpGet("all-with-fans")]
+    public async Task<ActionResult<IEnumerable<TeacherWithFansRequest>>> GetAllTeachersWithFans()
+    {
+        try
+        {
+            var teachersWithFans = await _adminService.GetAllTeachersWithFanAsync();
+            return Ok(teachersWithFans);
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while fetching teachers with fans.");
+        }
+
+    }
+
+
+    [HttpGet("get-by-id-teacher/{id}")]
+    public async Task<ActionResult<IEnumerable<TeacherWithFansRequest>>> GetAllTeachersWithFans(string id)
+    {
+        try
+        {
+            var teachersWithFans = await _adminService.GetAllByIdTeacherWithFanAsync(id);
+            return Ok(teachersWithFans);
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while fetching teachers with fans.");
+        }
+    }
+
 
 
 }

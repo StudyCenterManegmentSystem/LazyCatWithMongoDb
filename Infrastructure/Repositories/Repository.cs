@@ -1,11 +1,4 @@
-﻿using Domain.Entities.Entity;
-using Infrastructure.Interfaces;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace Infrastructure.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity

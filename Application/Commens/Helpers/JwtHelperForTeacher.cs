@@ -1,5 +1,4 @@
-﻿using Domain.Entities.Entity.Teachers;
-
+﻿
 namespace Application.Commens.Helpers;
 
 public static class JwtHelperForTeacher

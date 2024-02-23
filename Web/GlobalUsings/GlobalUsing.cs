@@ -1,5 +1,4 @@
 ﻿global using Application.Commens.Exceptions;
-global using Application.Dtos;
 global using Application.Interfaces;
 global using Microsoft.AspNetCore.Mvc;
 global using System.ComponentModel.DataAnnotations;
@@ -23,3 +22,8 @@ global using Microsoft.AspNetCore.Authorization;
 global using Application.Dtos.FanDtos;
 global using Application.Dtos.RoomsDto;
 global using Application.Dtos.RoomsDtol;
+global using Application.Dtos.AuthDto;
+global using Application.Dtos.TeacherDto;
+global using Domain.Entities.Entity.Teachers;
+global using Infrastructure.Interfaces;
+global using Infrastructure.Repositories;

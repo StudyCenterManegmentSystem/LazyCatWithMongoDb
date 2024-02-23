@@ -1,8 +1,14 @@
-﻿
-namespace Application.Dtos;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class RegisterRequest
+namespace Application.Dtos.AuthDto;
+
+public class RegistrationRequest
 {
+
     [Required, EmailAddress]
     public string Email { get; set; } = string.Empty;
     public string Username { get; set; } = string.Empty;
@@ -13,5 +19,5 @@ public class RegisterRequest
     public string Password { get; set; } = string.Empty;
     [Required, DataType(DataType.Password), Compare(nameof(Password), ErrorMessage = "Passwords do not match")]
     public string ConfirmPassword { get; set; } = string.Empty;
-    public List<string> Roles { get; set; } = new();
 }
+

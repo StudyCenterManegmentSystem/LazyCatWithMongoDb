@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-namespace Domain.Entities.Entity;
+﻿namespace Domain.Entities.Entity;
 public class BaseEntity
 {
     [BsonId]

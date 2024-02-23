@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace Domain.Entities.Entity.Fans;
 
 public class Fan : BaseEntity
