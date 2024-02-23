@@ -37,14 +37,8 @@ public class RoomService(IUnitOfWork unitOfWork) : IRoomService
         {
             throw new CustomException(ex.Message);
         }
-        catch (NotFoundException ex)
-        {
-            throw new NotFoundException(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+    
+    
     }
 
     public async Task DeleteAsync(string id)

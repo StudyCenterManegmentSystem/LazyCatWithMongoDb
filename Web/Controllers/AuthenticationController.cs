@@ -25,7 +25,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
 
@@ -44,7 +44,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
 
@@ -63,7 +63,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
 
@@ -81,7 +81,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
 }

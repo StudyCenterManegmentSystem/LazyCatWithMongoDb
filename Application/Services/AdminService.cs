@@ -219,10 +219,7 @@ public class AdminService (UserManager<Teacher> userManager,
                 {
                     teacherWithFans.Fans.Add(fan);
                 }
-                else
-                {
-                    throw new NotFoundException("Fan topilmadi");
-                }
+              
             }
 
             teachersWithFans.Add(teacherWithFans);
@@ -254,10 +251,7 @@ public class AdminService (UserManager<Teacher> userManager,
             {
                 teacherWithFans.Fans.Add(fan);
             }
-            else
-            {
-                throw new NotFoundException("Fan topilmadi");
-            }
+            
         }
 
         return new List<TeacherWithFansRequest> { teacherWithFans };

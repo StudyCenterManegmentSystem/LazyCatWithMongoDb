@@ -47,7 +47,7 @@ namespace Application.Services
 
                 var result = await _userManager.ChangePasswordAsync(user, dto.OldPassword, dto.NewPassword);
                 if (!result.Succeeded)
-                    throw new ValidationException("Failed to change password");
+                    throw new CustomException("Failed to change password");
 
                 var roles = await _userManager.GetRolesAsync(user);
                 var token = JwtHelperForTeacher.GenerateJwtToken(user, roles, _configuration);
@@ -93,7 +93,7 @@ namespace Application.Services
 
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
-                throw new ValidationException("Failed to delete user");
+                throw new CustomException("Failed to delete user");
         }
 
         public async Task LogoutAsync(TeacherLoginRequest request)
@@ -133,10 +133,7 @@ namespace Application.Services
                     {
                         teacherWithFans.Fans.Add(fan);
                     }
-                    else
-                    {
-                        throw new NotFoundException("Fan topilmadi");
-                    }
+                 
                 }
 
                 teachersWithFans.Add(teacherWithFans);
@@ -168,10 +165,7 @@ namespace Application.Services
                 {
                     teacherWithFans.Fans.Add(fan);
                 }
-                else
-                {
-                    throw new NotFoundException("Fan topilmadi");
-                }
+             
             }
 
             return new List<TeacherWithFansRequest> { teacherWithFans };

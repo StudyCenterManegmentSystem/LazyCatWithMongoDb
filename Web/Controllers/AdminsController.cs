@@ -3,9 +3,9 @@
 
 namespace Web.Controllers;
 
-[Route("api/admin")]
+[Route("api/admins")]
 [ApiController]
-public class AdminController(IAdminService adminService) : ControllerBase
+public class AdminsController(IAdminService adminService) : ControllerBase
 {
     private readonly IAdminService _adminService = adminService;
 

@@ -1,9 +1,9 @@
 ﻿
 namespace Web.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/teachers")]
 [ApiController]
-public class TeacherController(ITeacherService teacherService) : ControllerBase
+public class TeachersController(ITeacherService teacherService) : ControllerBase
 {
     private readonly ITeacherService _teacherService = teacherService;
 
@@ -15,10 +15,12 @@ public class TeacherController(ITeacherService teacherService) : ControllerBase
             var response = await _teacherService.LoginAsync(request);
             return Ok(response);
         }
+     
         catch (CustomException ex)
         {
             return BadRequest(ex.Message);
         }
+
         catch (Exception ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
@@ -37,6 +39,7 @@ public class TeacherController(ITeacherService teacherService) : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+
         catch (Exception ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
@@ -100,9 +103,13 @@ public class TeacherController(ITeacherService teacherService) : ControllerBase
         {
             return NotFound(ex.Message);
         }
+        catch (CustomException ex)
+        {
+            return BadRequest(ex.Message);
+        }
         catch (Exception ex)
         {
-            return StatusCode(500, "An error occurred while fetching teachers with fans.");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
 
     }
@@ -120,9 +127,13 @@ public class TeacherController(ITeacherService teacherService) : ControllerBase
         {
             return NotFound(ex.Message);
         }
+        catch(CustomException ex)
+        {
+            return BadRequest(ex.Message);
+        }
         catch (Exception ex)
         {
-            return StatusCode(500, "An error occurred while fetching teachers with fans.");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
 
     }
