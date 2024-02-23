@@ -207,7 +207,10 @@ public class AdminService (UserManager<Teacher> userManager,
             List<Fan> fans = new();
             var teacherWithFans = new TeacherWithFansRequest
             {
-                Teacher = teacher,
+                TeacherId = teacher.Id.ToString(),
+                FirstName = teacher.FirstName,
+                LastName = teacher.LastName,
+                Email = teacher.Email!,
                 Fans = fans
             };
 
@@ -239,7 +242,10 @@ public class AdminService (UserManager<Teacher> userManager,
 
         var teacherWithFans = new TeacherWithFansRequest
         {
-            Teacher = teacher,
+            TeacherId = teacher.Id.ToString(),
+            FirstName = teacher.FirstName,
+            LastName = teacher.LastName,
+            Email = teacher.Email!,
             Fans = new List<Fan>()
         };
 

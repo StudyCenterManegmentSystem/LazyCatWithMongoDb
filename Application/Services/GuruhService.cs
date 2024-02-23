@@ -81,6 +81,11 @@ public class GuruhService(IUnitOfWork unitOfWork,
         {
             throw new ArgumentNullException(nameof(updateGroupDto), "UpdateGroupDto is null");
         }
+        var guruh = await _unitOfWork.GuruhInterface.GetByIdAsync(updateGroupDto.Id);
+        if(guruh is null)
+        {
+            throw new NotFoundException("Bunday guruh mavjud emas");
+        }
 
         var group = (Guruh)updateGroupDto;
 
@@ -172,6 +177,10 @@ public class GuruhService(IUnitOfWork unitOfWork,
     public async Task<GuruhReturnDto> GetByIdAsync(string id)
     {
         var guruh = await _unitOfWork.GuruhInterface.GetByIdAsync(id);
+        if(guruh is null)
+        {
+            throw new NotFoundException("Bunday guruh mavjud emas");
+        }
         var teacher = await _userManager.FindByIdAsync(guruh.TeacherId!);
         if(guruh is null)
         {
@@ -192,5 +201,15 @@ public class GuruhService(IUnitOfWork unitOfWork,
 
         };
         return guruhReturnDto;
+    }
+
+    public async Task DeleteAsync(string id)
+    {
+        var guruh = await _unitOfWork.GuruhInterface.GetByIdAsync(id);
+        if(guruh is null)
+        {
+            throw new NotFoundException("Bunday guruh mavjud emas ");
+        }
+        await _unitOfWork.GuruhInterface.DeleteAsync(id);
     }
 }
