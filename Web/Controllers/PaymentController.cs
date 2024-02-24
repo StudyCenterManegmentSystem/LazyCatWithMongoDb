@@ -1,5 +1,4 @@
-﻿using Application.Dtos.PaymentDtos;
-
+﻿
 namespace Web.Controllers;
 
 [Route("api/payments")]

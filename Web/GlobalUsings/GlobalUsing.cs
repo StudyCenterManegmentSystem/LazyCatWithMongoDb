@@ -28,3 +28,4 @@ global using Domain.Entities.Entity.Teachers;
 global using Infrastructure.Interfaces;
 global using Infrastructure.Repositories;
 global using Application.Dtos.StudentDtos;
+global using Application.Dtos.PaymentDtos;
