@@ -12,6 +12,7 @@ public class UnitOfWork : IUnitOfWork
         FanRepository = new FanRepository(_dbContext.Fans);
         GuruhInterface = new GuruhRepository(_dbContext.Guruhlar);
         StudentInterface = new StudentRepository(_dbContext.Students);
+        PaymentInterface = new PaymentRepository(_dbContext.Payments);
     }
     private readonly ApplicationDbContext _dbContext;
     public IRoomInterface RoomInterface { get; }
@@ -20,4 +21,5 @@ public class UnitOfWork : IUnitOfWork
     public IGuruhInterface GuruhInterface { get; }
 
     public IStudentInterface StudentInterface { get; }
+    public IPaymentInterface PaymentInterface { get; }
 }

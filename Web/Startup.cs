@@ -1,6 +1,7 @@
 ﻿
 
 using Domain.Entities.Entity.Groups;
+using Domain.Entities.Entity.Payments;
 using Domain.Entities.Entity.Students;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
@@ -76,6 +77,7 @@ public static class Startup
         var database = client.GetDatabase(databaseName);
         services.AddSingleton<IMongoCollection<Guruh>>(database.GetCollection<Guruh>("Guruhlar"));
         services.AddSingleton<IMongoCollection<Student>>(database.GetCollection<Student>("Talabalar"));
+        services.AddSingleton<IMongoCollection<Payment>>(database.GetCollection<Payment>("To'luvlar"));
 
         services.AddScoped(m => new ApplicationDbContext(connectionString!, databaseName!));
 
@@ -154,6 +156,7 @@ public static class Startup
         services.AddTransient<IGuruhService, GuruhService>();
         services.AddTransient<IStudentInterface, StudentRepository>();
         services.AddTransient<IStudentService, StudentService>();
+        services.AddTransient<IPaymentInterface, PaymentRepository>();
 
 
 
