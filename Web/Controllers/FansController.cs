@@ -1,6 +1,8 @@
 
 
 
+using Application.Commens.Helpers;
+
 namespace Web.Controllers;
 [ApiController]
 [Route("api/fans")]
@@ -19,14 +21,20 @@ public class FansController(IFanService fanService) : ControllerBase
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch(NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NoContent();
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -41,15 +49,21 @@ public class FansController(IFanService fanService) : ControllerBase
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
@@ -63,14 +77,20 @@ public class FansController(IFanService fanService) : ControllerBase
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch(ArgumentNullException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
@@ -85,14 +105,20 @@ public class FansController(IFanService fanService) : ControllerBase
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (ArgumentNullException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
@@ -108,16 +134,22 @@ public class FansController(IFanService fanService) : ControllerBase
 
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
 
         catch(NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
 
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError ,ex.Message);
         }
     }
@@ -133,11 +165,15 @@ public class FansController(IFanService fanService) : ControllerBase
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
 
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -153,14 +189,20 @@ public class FansController(IFanService fanService) : ControllerBase
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch(NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }

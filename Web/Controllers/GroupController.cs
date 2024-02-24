@@ -1,5 +1,6 @@
 ﻿
 
+using Application.Commens.Helpers;
 using Application.Dtos.GroupsDto;
 
 namespace Web.Controllers
@@ -20,18 +21,26 @@ namespace Web.Controllers
             }
             catch(ArgumentNullException ex)
             {
-                return  BadRequest(ex.Message);
+                _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
+                return BadRequest(ex.Message);
             }
             catch (CustomException ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
                 return BadRequest(ex.Message);
             }
             catch (NotFoundException ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
                 return NoContent();
             }
             catch (Exception ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Error);
+
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
             }
 
@@ -47,18 +56,26 @@ namespace Web.Controllers
             }
             catch (ArgumentNullException ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
                 return BadRequest(ex.Message);
             }
             catch (CustomException ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
                 return BadRequest(ex.Message);
             }
             catch (NotFoundException ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
                 return NoContent();
             }
             catch (Exception ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Error);
+
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
             }
 
@@ -75,10 +92,14 @@ namespace Web.Controllers
             }
             catch(NotFoundException ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
                 return BadRequest(ex.Message);
             }
             catch(Exception ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Error);
+
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
             }
         }
@@ -94,10 +115,14 @@ namespace Web.Controllers
             }
             catch (NotFoundException ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Error);
+
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
             }
         }
@@ -112,10 +137,14 @@ namespace Web.Controllers
             }
             catch (NotFoundException ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
+                _ = LoggerBot.Log(ex.Message, LogType.Error);
+
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
             }
         }

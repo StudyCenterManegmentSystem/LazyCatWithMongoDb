@@ -2,6 +2,8 @@
 
 
 
+using Application.Commens.Helpers;
+
 namespace Application.Controllers;
 
 [ApiController]
@@ -21,10 +23,14 @@ public class AuthenticationController(IIdentityService identityService) : Contro
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -40,10 +46,14 @@ public class AuthenticationController(IIdentityService identityService) : Contro
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -59,10 +69,14 @@ public class AuthenticationController(IIdentityService identityService) : Contro
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -77,10 +91,14 @@ public class AuthenticationController(IIdentityService identityService) : Contro
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
