@@ -1,6 +1,8 @@
 ﻿
 
 
+using Application.Commens.Helpers;
+
 namespace Web.Controllers;
 
 [Route("api/admins")]
@@ -16,26 +18,37 @@ public class AdminsController(IAdminService adminService) : ControllerBase
         {
             var response = await _adminService.RegisterTeacherAsync(request);
             return response.Success ? Ok(response) : Conflict(response);
+
+
         }
         catch (InvalidDataException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (ValidationException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
             return BadRequest(ex.Message);
         }
      
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -50,14 +63,20 @@ public class AdminsController(IAdminService adminService) : ControllerBase
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (ValidationException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -72,14 +91,20 @@ public class AdminsController(IAdminService adminService) : ControllerBase
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (ValidationException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -94,18 +119,26 @@ public class AdminsController(IAdminService adminService) : ControllerBase
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch(ValidationException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -120,18 +153,26 @@ public class AdminsController(IAdminService adminService) : ControllerBase
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (ValidationException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -146,18 +187,26 @@ public class AdminsController(IAdminService adminService) : ControllerBase
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (ValidationException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -173,10 +222,14 @@ public class AdminsController(IAdminService adminService) : ControllerBase
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message} => An error occurred while fetching teachers with fans.");
         }
 
@@ -193,10 +246,14 @@ public class AdminsController(IAdminService adminService) : ControllerBase
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message} => An error occurred while fetching teachers with fans.");
         }
     }
