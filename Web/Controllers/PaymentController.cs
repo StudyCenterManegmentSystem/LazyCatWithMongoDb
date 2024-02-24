@@ -51,4 +51,29 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
+    [HttpDelete("delete-payment/{id}")]
+    public async Task<IActionResult> DeleteAsync(string id)
+    {
+        try
+        {
+            var payment = await _paymentService.DeletePaymentAsync(id);
+            return Ok(payment);
+        }
+        catch (ArgumentNullException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch(NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (CustomException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
 }

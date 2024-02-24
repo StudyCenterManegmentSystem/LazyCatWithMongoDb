@@ -7,4 +7,5 @@ public interface IPaymentService
 {
     Task<Payment> AddPaymentAsync(AddPaymentDto dto);
     Task<Payment> UpdatePaymentAsync(UpdatePaymentDto dto);
+    Task<Payment> DeletePaymentAsync(string id);
 }

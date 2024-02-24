@@ -15,7 +15,7 @@ public class PaymentService(IUnitOfWork unitOfWork) : IPaymentService
         }
         if (!ObjectId.TryParse(dto.GroupId, out ObjectId objectId))
         {
-            throw new CustomException("Guruh identifikatorlari ObjectId ko'rinishida emas");
+            throw new CustomException("Payment identifikatorlari ObjectId ko'rinishida emas");
         }
         var guruh = await _unitOfWork.GuruhInterface.GetByIdAsync(dto.GroupId!);
         if(guruh == null)
@@ -46,6 +46,21 @@ public class PaymentService(IUnitOfWork unitOfWork) : IPaymentService
         return payment;
     }
 
+    public async Task<Payment> DeletePaymentAsync(string id)
+    {
+        if(!ObjectId.TryParse(id, out ObjectId objectId))
+        {
+            throw new CustomException("Payment id identifikatorlari ObjectId ko'rinishida emas");
+        }
+        var payment = await _unitOfWork.PaymentInterface.GetByIdAsync(id);
+        if(payment == null)
+        {
+            throw new NotFoundException("Bunday payment topilmadi");
+        }
+        await _unitOfWork.PaymentInterface.DeleteAsync(id);
+        return payment;
+    }
+
     public async Task<Payment> UpdatePaymentAsync(UpdatePaymentDto dto)
     {
         if (dto == null)
@@ -54,7 +69,7 @@ public class PaymentService(IUnitOfWork unitOfWork) : IPaymentService
         }
         if (!ObjectId.TryParse(dto.GroupId, out ObjectId objectId))
         {
-            throw new CustomException("Guruh identifikatorlari ObjectId ko'rinishida emas");
+            throw new CustomException("Payment identifikatorlari ObjectId ko'rinishida emas");
         }
         var guruh = await _unitOfWork.GuruhInterface.GetByIdAsync(dto.GroupId!);
         if (guruh == null)
