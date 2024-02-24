@@ -14,6 +14,16 @@ public class FanService(IUnitOfWork unitOfWork,
         {
             throw new ArgumentNullException("Fan cannot be null");
         }
+        if(fanDto.FanName is null)
+        {
+            throw new ArgumentNullException("Fan Name cannot be null");
+
+        }
+        if (fanDto.FanDescription is null)
+        {
+            throw new ArgumentNullException("Fan Description cannot be null");
+
+        }
         var fan = (Fan)fanDto;
         var fanList = await _unitOfWork.FanRepository.GetAllAsync();
         if (!fan.IsValid())
