@@ -157,6 +157,7 @@ public static class Startup
         services.AddTransient<IStudentInterface, StudentRepository>();
         services.AddTransient<IStudentService, StudentService>();
         services.AddTransient<IPaymentInterface, PaymentRepository>();
+        services.AddTransient<IPaymentService, PaymentService>();
 
 
 
