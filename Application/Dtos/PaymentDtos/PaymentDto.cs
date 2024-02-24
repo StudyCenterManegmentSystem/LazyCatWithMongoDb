@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Dtos.StudentDtos;
+using Domain.Entities.Entity.Payments;
 
-namespace Application.Dtos.PaymentDtos
+namespace Application.Dtos.PaymentDtos;
+
+public class PaymentDto : BaseDto
 {
-    internal class PaymentDto
-    {
-    }
+    public DateTime QachonTolagan { get; set; }
+    [Required]
+    public decimal QanchaTolagan { get; set; }
+
+    public string? paymentType { get; set; }
+
+    public StudentForPayment? Student { get; set; }
+
 }
