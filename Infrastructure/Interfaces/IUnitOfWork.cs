@@ -6,5 +6,6 @@ public interface IUnitOfWork
     IFanRepository FanRepository { get; } 
     IGuruhInterface GuruhInterface { get; }
     IStudentInterface StudentInterface { get; }
+    IPaymentInterface PaymentInterface { get; }
     
 }
