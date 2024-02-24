@@ -1,5 +1,7 @@
 ﻿
 
+using Application.Commens.Helpers;
+
 namespace Web.Controllers;
 
 [Route("api/students")]
@@ -18,14 +20,20 @@ public class StudentController(IStudentService studentService) : ControllerBase
         }
         catch(ArgumentNullException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch(CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch(Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
@@ -39,14 +47,20 @@ public class StudentController(IStudentService studentService) : ControllerBase
         }
         catch (ArgumentNullException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
@@ -60,14 +74,20 @@ public class StudentController(IStudentService studentService) : ControllerBase
         }
         catch (ArgumentNullException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
@@ -82,6 +102,8 @@ public class StudentController(IStudentService studentService) : ControllerBase
         }
         catch(Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
@@ -95,10 +117,14 @@ public class StudentController(IStudentService studentService) : ControllerBase
         }
         catch(NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }

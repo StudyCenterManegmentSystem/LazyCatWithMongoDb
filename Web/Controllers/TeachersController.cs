@@ -1,4 +1,6 @@
 ﻿
+using Application.Commens.Helpers;
+
 namespace Web.Controllers;
 
 [Route("api/teachers")]
@@ -18,11 +20,15 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
      
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
 
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -37,11 +43,15 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
 
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -57,14 +67,20 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -79,14 +95,20 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
     }
@@ -101,14 +123,20 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch (CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
 
@@ -125,14 +153,20 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
         }
         catch (NotFoundException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return NotFound(ex.Message);
         }
         catch(CustomException ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Warning);
+
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
+            _ = LoggerBot.Log(ex.Message, LogType.Error);
+
             return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while processing the request: {ex.Message}");
         }
 
