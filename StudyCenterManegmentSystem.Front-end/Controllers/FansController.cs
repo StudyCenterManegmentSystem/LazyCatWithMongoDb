@@ -11,7 +11,7 @@ public class FansController(IFanService fanService) : Controller
 
     public IActionResult Index()
     {
-        var fans = _fanService.GetAllAsync();
+        var fans = _fanService.GetAllFanTeachers();
         return View(fans);
     }
 
