@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{26BEAE21-AFEC-407A-AC35-715557D59795}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyCenterManegmentSystem.StorageService", "StudyCenterManegmentSystem.StorageService\StudyCenterManegmentSystem.StorageService.csproj", "{F0E515EB-2F6C-47DB-8B15-D302F26E3727}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudyCenterManegmentSystem.StorageService", "StudyCenterManegmentSystem.StorageService\StudyCenterManegmentSystem.StorageService.csproj", "{F0E515EB-2F6C-47DB-8B15-D302F26E3727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyCenterManegmentSystem.Front-end", "StudyCenterManegmentSystem.Front-end\StudyCenterManegmentSystem.Front-end.csproj", "{81F5AA1D-0328-4E87-9CD6-8E947B3636F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F0E515EB-2F6C-47DB-8B15-D302F26E3727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0E515EB-2F6C-47DB-8B15-D302F26E3727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0E515EB-2F6C-47DB-8B15-D302F26E3727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81F5AA1D-0328-4E87-9CD6-8E947B3636F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F5AA1D-0328-4E87-9CD6-8E947B3636F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81F5AA1D-0328-4E87-9CD6-8E947B3636F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81F5AA1D-0328-4E87-9CD6-8E947B3636F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
