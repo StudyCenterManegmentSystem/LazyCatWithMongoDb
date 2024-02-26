@@ -13,4 +13,6 @@ public interface IAdminService
 
     Task<IEnumerable<TeacherWithFansRequest>> GetAllTeachersWithFanAsync();
     Task<IEnumerable<TeacherWithFansRequest>> GetAllByIdTeacherWithFanAsync(string id);
+    Task ConfirmEmailAsync(string email);
+
 }

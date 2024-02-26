@@ -154,6 +154,7 @@ public static class Startup
         services.AddTransient<IGuruhService, GuruhService>();
         services.AddTransient<IStudentInterface, StudentRepository>();
         services.AddTransient<IStudentService, StudentService>();
+        services.AddTransient<EmailService>();
 
 
 

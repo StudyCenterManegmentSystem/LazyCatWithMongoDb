@@ -2,19 +2,23 @@
 
 
 
+using Telegram.Bot.Types;
+
 namespace Application.Services;
 
 public class AdminService (UserManager<Teacher> userManager,
                            IConfiguration configuration,
                            RoleManager<ApplicationRole> roleManager,
                            UserManager<ApplicationUser> userManager1, 
-                           IUnitOfWork unitOfWork) : IAdminService
+                           IUnitOfWork unitOfWork,
+                           EmailService emailService) : IAdminService
 {
     private readonly UserManager<Teacher> _userManager = userManager;
     private readonly IConfiguration _configuration = configuration;
     private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
     private readonly UserManager<ApplicationUser> _userManager1 = userManager1;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly EmailService _emailService = emailService;
 
     public async Task DeleteAccountAsync(TeacherLoginRequest request)
     {
@@ -90,6 +94,8 @@ public class AdminService (UserManager<Teacher> userManager,
 
             if (teacher != null)
                 await _userManager.AddToRoleAsync(teacher, IdentityRoles.TEACHER);
+
+            _ = Task.Run(() => _emailService.SendEmail(teacher.Email!, $"{teacher.FirstName} {teacher.LastName}"));
 
             return new TeacherRegisterResponse { Success = true, Message = "Teacher registered successfully", TeacherId =teacher.Id.ToString() };
         }
@@ -262,5 +268,17 @@ public class AdminService (UserManager<Teacher> userManager,
         }
 
         return new List<TeacherWithFansRequest> { teacherWithFans };
+    }
+
+    public async Task ConfirmEmailAsync(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user is null)
+        {
+            throw new NotFoundException("User not found");
+        }
+
+        user.EmailConfirmed = true;
+        await _userManager.UpdateAsync(user);
     }
 }
