@@ -158,6 +158,7 @@ public static class Startup
         services.AddTransient<IStudentService, StudentService>();
         services.AddTransient<IPaymentInterface, PaymentRepository>();
         services.AddTransient<IPaymentService, PaymentService>();
+        services.AddTransient<EmailService>();
 
 
 
