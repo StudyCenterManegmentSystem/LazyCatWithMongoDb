@@ -2,6 +2,7 @@
 
 
 using Domain.Entities.Entity.Groups;
+using Domain.Entities.Entity.Payments;
 using Domain.Entities.Entity.Students;
 
 namespace Application.Commens.Helpers;
@@ -58,11 +59,29 @@ public static class Validator
                                  s.PhoneNumber == student.PhoneNumber);
     }
 
+
+
     public static bool IsValid(this Student student)
     {
         return !string.IsNullOrEmpty(student.FirstName) &&
                !string.IsNullOrEmpty(student.LastName) &&
                !string.IsNullOrEmpty(student.PhoneNumber);
+    }
+
+    public static bool IsValid(this Payment payment)
+    {
+        return !string.IsNullOrEmpty(payment.GroupId!.ToString()) &&
+               !string.IsNullOrEmpty(payment.StudentId!.ToString()) &&
+               payment.QanchaTolagan > 0;
+    }
+
+    public static bool IsExist(this Payment payment, IEnumerable<Payment> payments)
+    {
+        return payments.Any(p => p.GroupId == payment.GroupId &&
+                                 p.StudentId == payment.StudentId &&
+                                 p.QanchaTolagan == payment.QanchaTolagan &&
+                                 p.paymentType == payment.paymentType && 
+                                 p.QachonTolagan == p.QachonTolagan);
     }
 
 }
