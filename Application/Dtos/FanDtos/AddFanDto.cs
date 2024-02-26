@@ -1,5 +1,3 @@
-using Domain.Entities.Entity.Fans;
-
  namespace Application.Dtos.FanDtos;
 
 public class AddFanDto
