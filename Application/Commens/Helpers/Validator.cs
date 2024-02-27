@@ -87,7 +87,7 @@ public static class Validator
     public static bool IsValid(this Attendance attendance)
         => !string.IsNullOrEmpty(attendance.GroupId) &&
            !string.IsNullOrEmpty(attendance.TalabaId) &&
-           attendance.Qachon <= DateTime.Now;
+           attendance.Qachon >= DateTime.Now;
 
     public static bool IsExist(this Attendance attendance, IEnumerable<Attendance> attendances)
         => attendances.Any(a => a.TalabaId == attendance.TalabaId &&
