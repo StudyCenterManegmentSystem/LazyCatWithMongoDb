@@ -95,7 +95,7 @@ public class AdminService (UserManager<Teacher> userManager,
             if (teacher != null)
                 await _userManager.AddToRoleAsync(teacher, IdentityRoles.TEACHER);
 
-            _ = Task.Run(() => _emailService.SendEmail(teacher.Email!, $"{teacher.FirstName} {teacher.LastName}"));
+            //_ = Task.Run(() => _emailService.SendEmail(teacher.Email!, $"{teacher.FirstName} {teacher.LastName}"));
 
             return new TeacherRegisterResponse { Success = true, Message = "Teacher registered successfully", TeacherId =teacher.Id.ToString() };
         }
