@@ -12,6 +12,12 @@ public class FansController(IFanService fanService) : ControllerBase
     private readonly IFanService _fanService = fanService;
 
     [HttpGet("get-all-fans")]
+    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll()
     {
         try
@@ -40,6 +46,12 @@ public class FansController(IFanService fanService) : ControllerBase
     }
 
     [HttpGet("get-by-id-fan/{id}")]
+    [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetById(string id)
     {
         try
@@ -68,6 +80,12 @@ public class FansController(IFanService fanService) : ControllerBase
         }
     }
     [HttpPost("create-fan")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Add(AddFanDto addFan)
     {
         try
@@ -96,6 +114,12 @@ public class FansController(IFanService fanService) : ControllerBase
     }
 
     [HttpPut("update-fan")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Update(FanDto fanDto)
     {
         try
@@ -124,6 +148,12 @@ public class FansController(IFanService fanService) : ControllerBase
     }
 
     [HttpDelete("delete-fan/{id}")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Delete(string id)
     {
         try
@@ -156,6 +186,12 @@ public class FansController(IFanService fanService) : ControllerBase
 
 
     [HttpGet("get-all-with-teachers")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAllWithTeachers()
     {
         try
@@ -180,6 +216,12 @@ public class FansController(IFanService fanService) : ControllerBase
 
 
     [HttpGet("get-by-id-fan-with-teachers")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetByIdFanWithTeachers(string id)
     {
         try
