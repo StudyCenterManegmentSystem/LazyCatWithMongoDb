@@ -11,7 +11,7 @@ var accessKey = builder.Configuration["AWS:AccessKey"];
 var secretKey = builder.Configuration["AWS:SecretAccessKey"];
 
 var awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-builder.Services.AddSingleton<IAmazonS3>(new AmazonS3Client(awsCredentials, Amazon.RegionEndpoint.EUNorth1));
+builder.Services.AddSingleton<IAmazonS3>(new AmazonS3Client(awsCredentials, Amazon.RegionEndpoint.USEast1));
 builder.Services.AddTransient<IS3Interface, S3Service>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
