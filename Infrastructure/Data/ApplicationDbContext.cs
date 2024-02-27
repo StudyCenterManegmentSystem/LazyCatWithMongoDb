@@ -2,6 +2,8 @@
 
 
 
+using Domain.Entities.Entity.Attendances;
+
 namespace Infrastructure.Data;
 
 public class ApplicationDbContext 
@@ -26,5 +28,7 @@ public class ApplicationDbContext
         _database.GetCollection<Room>("xonalar");
     public IMongoCollection<Student> Students =>
         _database.GetCollection<Student>("Talabalar");
+    public IMongoCollection<Attendance> Attendances =>
+        _database.GetCollection<Attendance>("Davomatlar");
 
 }

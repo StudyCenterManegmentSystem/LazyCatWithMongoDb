@@ -1,6 +1,7 @@
 ﻿
 
 
+using Domain.Entities.Entity.Attendances;
 using Domain.Entities.Entity.Groups;
 using Domain.Entities.Entity.Payments;
 using Domain.Entities.Entity.Students;
@@ -83,5 +84,16 @@ public static class Validator
                                  p.paymentType == payment.paymentType && 
                                  p.QachonTolagan == p.QachonTolagan);
     }
+    public static bool IsValid(this Attendance attendance)
+        => !string.IsNullOrEmpty(attendance.GroupId) &&
+           !string.IsNullOrEmpty(attendance.TalabaId) &&
+           attendance.Qachon >= DateTime.Now;
+
+    public static bool IsExist(this Attendance attendance, IEnumerable<Attendance> attendances)
+        => attendances.Any(a => a.TalabaId == attendance.TalabaId &&
+                                a.GroupId == attendance.GroupId &&
+                                a.KeldiKemadi == attendance.KeldiKemadi &&
+                                a.Qachon == attendance.Qachon);
+           
 
 }

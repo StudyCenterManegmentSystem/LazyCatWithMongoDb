@@ -24,6 +24,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
     {
         try
         {
+            
             var response = await _identityService.LoginAsync(request);
             return response.Success ? Ok(response) : Unauthorized("Bu role ga ruhsat yo'q");
         }
