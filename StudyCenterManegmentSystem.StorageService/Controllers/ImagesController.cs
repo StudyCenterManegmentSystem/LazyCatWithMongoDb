@@ -2,60 +2,59 @@
 using Microsoft.AspNetCore.Mvc;
 using StudyCenterManegmentSystem.StorageService.Services;
 
-namespace StudyCenterManegmentSystem.StorageService.Controllers
+namespace StudyCenterManegmentSystem.StorageService.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ImagesController(IS3Interface s3Interface)
+: ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ImagesController(IS3Interface s3Interface)
-    : ControllerBase
+    private readonly IS3Interface s3Interface = s3Interface;
+
+    [HttpPost]
+    public async Task<IActionResult> UploadImageAsync(IFormFile file)
     {
-        private readonly IS3Interface s3Interface = s3Interface;
-
-        [HttpPost]
-        public async Task<IActionResult> UploadImageAsync(IFormFile file)
+        try
         {
-            try
-            {
-                var fileKey = await s3Interface.UploadFileAsync(file);
-                string url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/Images/{fileKey}";
-                return Ok(url);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var fileKey = await s3Interface.UploadFileAsync(file);
+            string url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/Images/{fileKey}";
+            return Ok(url);
         }
-
-        [HttpGet("{fileName}")]
-        public async Task<IActionResult> GetImageAsync(string fileName)
+        catch (Exception ex)
         {
-            try
-            {
-                var file = await s3Interface.GetFileUrlAsync(fileName);
-                return File(file, "image/jpeg");
-            }
-            catch (ArgumentNullException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return BadRequest(ex.Message);
         }
+    }
 
-        [HttpDelete("{fileName}")]
-        public async Task<IActionResult> DeleteImageAsync(string fileName)
+    [HttpGet("{fileName}")]
+    public async Task<IActionResult> GetImageAsync(string fileName)
+    {
+        try
         {
-            try
-            {
-                await s3Interface.DeleteFileAsync(fileName);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var file = await s3Interface.GetFileUrlAsync(fileName);
+            return File(file, "image/jpeg");
+        }
+        catch (ArgumentNullException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpDelete("{fileName}")]
+    public async Task<IActionResult> DeleteImageAsync(string fileName)
+    {
+        try
+        {
+            await s3Interface.DeleteFileAsync(fileName);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
     }
 }
