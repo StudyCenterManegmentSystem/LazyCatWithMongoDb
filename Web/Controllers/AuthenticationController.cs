@@ -14,6 +14,12 @@ public class AuthenticationController(IIdentityService identityService) : Contro
 
 
     [HttpPost("login")]
+    [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Login(LoginRequest request)
     {
         try
@@ -37,6 +43,12 @@ public class AuthenticationController(IIdentityService identityService) : Contro
 
 
     [HttpPatch("change-password")]
+    [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ChangePassword(ChangePasswordRequest request)
     {
         try
@@ -60,6 +72,12 @@ public class AuthenticationController(IIdentityService identityService) : Contro
 
 
     [HttpPatch("logout")]
+    [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Logout(LoginRequest request)
     {
         try
@@ -82,6 +100,12 @@ public class AuthenticationController(IIdentityService identityService) : Contro
     }
 
     [HttpDelete("delete-account")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteAccount(LoginRequest request)
     {
         try

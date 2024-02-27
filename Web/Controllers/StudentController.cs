@@ -11,6 +11,12 @@ public class StudentController(IStudentService studentService) : ControllerBase
     private readonly IStudentService _studentService = studentService;
 
     [HttpPost("create-student")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> AddStudentAsync(AddStudentDto dto)
     {
         try
@@ -38,6 +44,12 @@ public class StudentController(IStudentService studentService) : ControllerBase
         }
     }
     [HttpPut("update-student")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateStudentAsync(UpdateStudentDto dto)
     {
         try
@@ -65,6 +77,12 @@ public class StudentController(IStudentService studentService) : ControllerBase
         }
     }
     [HttpDelete("delete-student/{id}")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteStudentAsync(string id)
     {
         try
@@ -93,6 +111,12 @@ public class StudentController(IStudentService studentService) : ControllerBase
     }
 
     [HttpGet("get-all-students")]
+    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAllAsync()
     {
         try
@@ -108,6 +132,12 @@ public class StudentController(IStudentService studentService) : ControllerBase
         }
     }
     [HttpGet("get-by-id-students")]
+    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetByIdAsync(string id)
     {
         try

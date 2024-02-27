@@ -10,6 +10,12 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     private readonly ITeacherService _teacherService = teacherService;
 
     [HttpPost("login-teacher")]
+    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Login(TeacherLoginRequest request)
     {
         try
@@ -34,6 +40,12 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     }
 
     [HttpPatch("change-teacher-password")]
+    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ChangePassword(TeacherChangePasswordRequest request)
     {
         try
@@ -58,6 +70,12 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
 
 
     [HttpPatch("logout-teacher")]
+    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Logout(TeacherLoginRequest request)
     {
         try
@@ -86,6 +104,12 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     }
 
     [HttpDelete("delete-teacher-account")]
+    [Authorize(Roles = "SuperAdmin, Admin ")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteAccount(TeacherLoginRequest request)
     {
         try
@@ -114,6 +138,12 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     }
 
     [HttpGet("all-with-fans")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IEnumerable<TeacherWithFansRequest>>> GetAllTeachersWithFans()
     {
         try
@@ -144,6 +174,12 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
 
 
     [HttpGet("get-by-id-teacher/{id}")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IEnumerable<TeacherWithFansRequest>>> GetAllTeachersWithFans(string id)
     {
         try
