@@ -7,5 +7,6 @@ public interface IUnitOfWork
     IGuruhInterface GuruhInterface { get; }
     IStudentInterface StudentInterface { get; }
     IPaymentInterface PaymentInterface { get; }
+    IAttendanceInterface AttendanceInterface { get; }
     
 }
