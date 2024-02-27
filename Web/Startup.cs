@@ -1,5 +1,6 @@
 ﻿
 
+using Domain.Entities.Entity.Attendances;
 using Domain.Entities.Entity.Groups;
 using Domain.Entities.Entity.Payments;
 using Domain.Entities.Entity.Students;
@@ -77,6 +78,8 @@ public static class Startup
         services.AddSingleton<IMongoCollection<Guruh>>(database.GetCollection<Guruh>("Guruhlar"));
         services.AddSingleton<IMongoCollection<Student>>(database.GetCollection<Student>("Talabalar"));
         services.AddSingleton<IMongoCollection<Payment>>(database.GetCollection<Payment>("To'luvlar"));
+        services.AddSingleton<IMongoCollection<Attendance>>(database.GetCollection<Attendance>("Davomatlar"));
+
 
         services.AddScoped(m => new ApplicationDbContext(connectionString!, databaseName!));
 
@@ -157,6 +160,7 @@ public static class Startup
         services.AddTransient<IStudentService, StudentService>();
         services.AddTransient<IPaymentInterface, PaymentRepository>();
         services.AddTransient<IPaymentService, PaymentService>();
+        services.AddTransient<IAttendanceInterface, AttendanceRepository>();
         services.AddTransient<EmailService>();
 
 
