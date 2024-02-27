@@ -14,7 +14,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
 
 
     [HttpPost("login")]
-    [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
+    //[Authorize(Roles = "SuperAdmin, Admin, Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -25,7 +25,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
         try
         {
             var response = await _identityService.LoginAsync(request);
-            return response.Success ? Ok(response) : Unauthorized(response);
+            return response.Success ? Ok(response) : Unauthorized("Bu role ga ruhsat yo'q");
         }
         catch (CustomException ex)
         {

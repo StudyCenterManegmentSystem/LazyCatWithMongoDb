@@ -3,7 +3,6 @@
 using Domain.Entities.Entity.Groups;
 using Domain.Entities.Entity.Payments;
 using Domain.Entities.Entity.Students;
-using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
 namespace Web;
