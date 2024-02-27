@@ -7,7 +7,13 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
 {
     private readonly IPaymentService _paymentService = paymentService;
 
-    [HttpPost("create-payment")]  
+    [HttpPost("create-payment")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> AddPayment(AddPaymentDto dto)
     {
         try
@@ -30,6 +36,12 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
     }
 
     [HttpPut("update-payment")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdatePayment(UpdatePaymentDto dto)
     {
         try
@@ -51,6 +63,12 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
         }
     }
     [HttpDelete("delete-payment/{id}")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteAsync(string id)
     {
         try
@@ -77,6 +95,12 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
     }
 
     [HttpGet("get-all-payments")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAllAsync()
     {
         try
@@ -103,6 +127,12 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
     }
 
     [HttpGet("get-by-id-payment/{id}")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetByIdAsync(string id)
     {
         try
