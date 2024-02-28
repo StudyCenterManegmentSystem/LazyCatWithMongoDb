@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudyCenterManegmentSystem.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontendCRM", "FrontendCRM\FrontendCRM.csproj", "{5AE150F4-C8F3-4C68-AAE8-F3676952D04F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Admin", "CRM.Admin\CRM.Admin.csproj", "{657767C0-8FDE-438A-A81A-D7F8ADCBDAC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Admin", "CRM.Admin\CRM.Admin.csproj", "{657767C0-8FDE-438A-A81A-D7F8ADCBDAC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

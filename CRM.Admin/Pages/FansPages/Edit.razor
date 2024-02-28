@@ -4,12 +4,13 @@
     <MudItem xs="3"></MudItem>
     <MudItem xs="6">
         <MudCard Class="mt-4">
-            <MudCardHeader Class="d-flex justify-center"> <h3>Edit Fan</h3> </MudCardHeader>
             <MudCardContent>
-                <MudTextField @bind-Value="fan.FanName" Label="FanName" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
-                <MudTextField @bind-Value="fan.FanDescription" Label="FanDescription" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
-
+                <MudStack Direction="Direction.Horizontal">
+                    <MudTextField @bind-Value="fan.FanName" Label="FanName" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                    <MudTextField @bind-Value="fan.FanDescription" Label="FanDescription" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                </MudStack>
             </MudCardContent>
+
             <MudCardActions Class="d-flex justify-center">
                 <MudButton @onclick="Cancel" Variant="Variant.Filled">Cancel</MudButton>
                 <MudButton @onclick="Save" Class="ms-2" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>

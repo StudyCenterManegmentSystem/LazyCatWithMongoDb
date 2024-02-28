@@ -215,7 +215,7 @@ public class FansController(IFanService fanService) : ControllerBase
     }
 
 
-    [HttpGet("get-by-id-fan-with-teachers")]
+    [HttpGet("get-by-id-fan-with-teachers/{id}")]
     //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

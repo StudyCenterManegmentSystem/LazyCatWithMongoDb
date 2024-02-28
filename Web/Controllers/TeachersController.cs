@@ -10,7 +10,7 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     private readonly ITeacherService _teacherService = teacherService;
 
     [HttpPost("login-teacher")]
-    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    //[Authorize(Roles = "SuperAdmin, Admin , Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

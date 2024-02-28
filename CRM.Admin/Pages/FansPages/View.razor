@@ -1,6 +1,6 @@
-﻿@page "/fans"
+﻿@page "/fans/view"
 
-<MudTable Items="@fans" Dense="true" Hover="true" Bordered="true" Striped="true" Filter="new Func<Fan, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
+<MudTable Items="@fans" Dense="true" Hover="true" Bordered="true" Striped="true" Filter="new Func<FanTeachersDto, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Fans Table</MudText>
         <MudSpacer />
@@ -9,23 +9,32 @@
         <MudButton @onclick="OpenAddPage" StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Success" Size="Size.Medium">Add</MudButton>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh>Id</MudTh>
+       
         <MudTh>FanName</MudTh>
         <MudTh>FanDescription</MudTh>
+        <MudTh>Teachers</MudTh>
         <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="Name">@context.FanName</MudTd>
-        <MudTd DataLabel="Name">@context.FanDescription</MudTd>
+        <MudTd DataLabel="FanName">@context.FanName</MudTd>
+        <MudTd DataLabel="FanDescription">@context.FanDescription</MudTd>
+        <MudTd DataLabel="Teachers">
+            @foreach (var teacher in @context.Teachers)
+            {
+                <div>
+                    <strong>@teacher.FirstName @teacher.LastName</strong>
+                    <br />
+                    <span>Email: @teacher.Email</span>
+                </div>
+            }
+        </MudTd>
+
         <MudTd DataLabel="Actions">
             <div style="display: flex; gap: 1rem;">
                 <MudIconButton @onclick="() => OpenEditPage(context.Id)" Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Medium" />
                 <MudIconButton @onclick="() => Delete(context.Id)" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" />
-                <MudIconButton @onclick="() => OpenViewPage()" Icon="@Icons.Material.Filled.Visibility" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium" />
             </div>
         </MudTd>
-
     </RowTemplate>
     <PagerContent>
         <MudTablePager />
@@ -39,26 +48,26 @@
     @inject IDialogService DialogService
 
     private string searchString1 = "";
-    private Fan selectedItem1 = new();
-    private List<Fan> fans = new();
+    private FanTeachersDto selectedItem1 = new();
+    private List<FanTeachersDto> fans = new();
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadData();
+        await View1(); // Call View method to load data
     }
 
-    private async Task LoadData()
+    private async Task View1()
     {
-        var response = await httpClient.GetAsync(Constants.BASE_URL + "fans/get-all-fans");
+        var response = await httpClient.GetAsync(Constants.BASE_URL + "fans/get-all-with-teachers");
         if (response.IsSuccessStatusCode)
         {
-            fans = await response.Content.ReadFromJsonAsync<List<Fan>>();
+            fans = await response.Content.ReadFromJsonAsync<List<FanTeachersDto>>();
         }
     }
 
-    private bool FilterFunc1(Fan element) => FilterFunc(element, searchString1);
+    private bool FilterFunc1(FanTeachersDto element) => FilterFunc(element, searchString1);
 
-    private bool FilterFunc(Fan element, string searchString)
+    private bool FilterFunc(FanTeachersDto element, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
@@ -78,11 +87,7 @@
     {
         navigation.NavigateTo($"/fans/edit/{id}");
     }
-    private void OpenViewPage()
-    {
-        navigation.NavigateTo("/fans/view");
 
-    }
     private async Task Delete(string id)
     {
         var parameters = new DialogParameters<YesNo>();
@@ -98,7 +103,6 @@
             var response = await httpClient.DeleteAsync(Constants.BASE_URL + "fans/delete-fan/" + id);
             if (response.IsSuccessStatusCode)
             {
-                await LoadData(); // Reload data after successful deletion
                 Snackbar.Add("Fan deleted successfully!", Severity.Success);
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
