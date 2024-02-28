@@ -168,6 +168,7 @@ public static class Startup
 
 
         #endregion
+
     }
 
     public static void Configure(this IApplicationBuilder app, IWebHostEnvironment env)
@@ -199,7 +200,7 @@ public static class Startup
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        var roles = new[] { "Admin", "User", "SuperAdmin" };
+        var roles = new[] { "Admin", "Teacher", "SuperAdmin" };
 
         foreach (var role in roles)
         {
