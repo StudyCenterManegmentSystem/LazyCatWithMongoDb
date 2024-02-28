@@ -21,6 +21,8 @@
         <MudTd DataLabel="Actions">
             <MudIconButton @onclick="() => OpenEditPage(context.Id)" Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Medium" />
             <MudIconButton @onclick="() => Delete(context.Id)" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" />
+            <MudIconButton @onclick="() => Delete(context.Id)" Icon="@Icons.Material.Filled.LocalSee" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" />
+
         </MudTd>
     </RowTemplate>
     <PagerContent>
@@ -87,7 +89,7 @@
         var dialogResult = await DialogService.Show<YesNo>("Delete", parameters, options).Result!;
         if (!dialogResult.Cancelled)
         {
-            var response = await httpClient.DeleteAsync(Constants.BASE_URL + "fans/" + id);
+            var response = await httpClient.DeleteAsync(Constants.BASE_URL + "fans/delete-fan/" + id);
             if (response.IsSuccessStatusCode)
             {
                 await LoadData(); // Reload data after successful deletion

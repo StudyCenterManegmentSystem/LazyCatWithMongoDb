@@ -6,8 +6,8 @@
         <MudCard Class="mt-4">
             <MudCardHeader Class="d-flex justify-center"> <h3>Edit Fan</h3> </MudCardHeader>
             <MudCardContent>
-                <MudTextField @bind-Value="fan.FanName" Label="Name" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
-                <MudTextField @bind-Value="fan.FanDescription" Label="Name" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                <MudTextField @bind-Value="fan.FanName" Label="FanName" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                <MudTextField @bind-Value="fan.FanDescription" Label="FanDescription" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
 
             </MudCardContent>
             <MudCardActions Class="d-flex justify-center">
@@ -30,7 +30,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        var response = await httpClient.GetAsync(Constants.BASE_URL + "fans/" + Id);
+        var response = await httpClient.GetAsync(Constants.BASE_URL + "fans/get-by-id-fan/" + Id);
         if (response.IsSuccessStatusCode)
         {
             fan = await response.Content.ReadFromJsonAsync<Fan>();
@@ -53,7 +53,7 @@
         var json = JsonSerializer.Serialize(fan);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var response = await httpClient.PutAsync(Constants.BASE_URL + "fans", data);
+        var response = await httpClient.PutAsync(Constants.BASE_URL + "fans/update-fan", data);
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add("Fan updated successfully!", Severity.Success);
