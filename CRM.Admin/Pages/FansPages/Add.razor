@@ -1,0 +1,56 @@
+﻿@page "/fans/add"
+
+<MudGrid>
+    <MudItem xs="3"></MudItem>
+    <MudItem xs="6">
+        <MudCard Class="mt-4">
+            <MudCardHeader Class="d-flex justify-center"> <h3>Add new Fan</h3> </MudCardHeader>
+            <MudCardContent>
+                <MudTextField @bind-Value="fanName" Label="Name" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                <MudTextField @bind-Value="fanDescription" Label="Name" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+
+            </MudCardContent>
+            <MudCardActions Class="d-flex justify-center">
+                <MudButton @onclick="Cancel" Variant="Variant.Filled">Cancel</MudButton>
+                <MudButton @onclick="Save" Class="ms-2" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="3"></MudItem>
+</MudGrid>
+
+@code {
+    @inject NavigationManager navigation
+    string fanName { get; set; } = "";
+    string fanDescription { get; set; } = "";
+    @inject HttpClient httpClient
+    @inject ISnackbar Snackbar
+
+    private void Cancel()
+    {
+        navigation.NavigateTo("/fans");
+    }
+
+    private async void Save()
+    {
+        var model = new { name = fanName , fanDescription };
+        var json = JsonSerializer.Serialize(model);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await httpClient.PostAsync(Constants.BASE_URL + "create-fan", data);
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Fan added successfully!", Severity.Success);
+            Cancel();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            Snackbar.Add(responseContent, Severity.Error);
+        }
+        else
+        {
+            Snackbar.Add("Someting went error!", Severity.Error);
+        }
+    }
+}

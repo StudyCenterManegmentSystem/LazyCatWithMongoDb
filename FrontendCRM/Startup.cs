@@ -1,12 +1,26 @@
-﻿
-
+﻿using Application.Interfaces;
+using Application.Services;
+using AspNetCore.Identity.MongoDbCore.Extensions;
+using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using Domain.Entities.Entity.Attendances;
 using Domain.Entities.Entity.Groups;
 using Domain.Entities.Entity.Payments;
 using Domain.Entities.Entity.Students;
+using Domain.Entities.Entity.Teachers;
+using Domain.Entities;
+using Domain.Models;
+using Infrastructure.Data;
+using Infrastructure.Interfaces;
+using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using System.Text;
 
-namespace Web;
+namespace FrontendCRM;
 
 public static class Startup
 {
@@ -14,52 +28,6 @@ public static class Startup
 
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        #region CORS Policy
-
-        services.AddCors(options =>
-        {
-            options.AddPolicy(CorsPolicyName,
-                builder =>
-                {
-                    builder.AllowAnyOrigin()
-                           .AllowAnyMethod()
-                           .AllowAnyHeader();
-                });
-        });
-
-        #endregion
-
-        services.AddControllers();
-        services.AddEndpointsApiExplorer();
-
-        #region Default DI Services
-
-        services.AddSwaggerGen(options =>
-        {
-            options.SwaggerDoc("v1", new OpenApiInfo { Title = "CRM", Version = "v1" });
-            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            {
-                Description = "JWT Authorization header using the Bearer scheme.",
-                Type = SecuritySchemeType.Http,
-                Scheme = "bearer"
-            });
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
-                }
-            });
-        });
-
-        #endregion
 
         #region BsonSerializer 
 
@@ -172,11 +140,6 @@ public static class Startup
 
     public static void Configure(this IApplicationBuilder app, IWebHostEnvironment env)
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-
-        app.UseMiddleware<ErrorHandlingMiddleware>();
-
         app.UseRouting();
 
         app.UseCors(CorsPolicyName);

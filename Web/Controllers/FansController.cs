@@ -12,7 +12,7 @@ public class FansController(IFanService fanService) : ControllerBase
     private readonly IFanService _fanService = fanService;
 
     [HttpGet("get-all-fans")]
-    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    //[Authorize(Roles = "SuperAdmin, Admin , Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -46,7 +46,7 @@ public class FansController(IFanService fanService) : ControllerBase
     }
 
     [HttpGet("get-by-id-fan/{id}")]
-    [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
+    //[Authorize(Roles = "SuperAdmin, Admin, Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -80,7 +80,7 @@ public class FansController(IFanService fanService) : ControllerBase
         }
     }
     [HttpPost("create-fan")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -114,7 +114,7 @@ public class FansController(IFanService fanService) : ControllerBase
     }
 
     [HttpPut("update-fan")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -148,7 +148,7 @@ public class FansController(IFanService fanService) : ControllerBase
     }
 
     [HttpDelete("delete-fan/{id}")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -186,7 +186,7 @@ public class FansController(IFanService fanService) : ControllerBase
 
 
     [HttpGet("get-all-with-teachers")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -216,7 +216,7 @@ public class FansController(IFanService fanService) : ControllerBase
 
 
     [HttpGet("get-by-id-fan-with-teachers")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Dtos.FanDtos;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontendCRM.Controllers
@@ -9,9 +10,9 @@ namespace FrontendCRM.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //List<FanDto> allFans = await fanService.GetAllAsync();
+            List<FanDto> allFans = await fanService.GetAllAsync();
 
-            return View();
+            return View(allFans);
         }
     }
 }

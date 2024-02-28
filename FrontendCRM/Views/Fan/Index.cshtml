@@ -1,4 +1,9 @@
-﻿
+﻿@model List<FanDto>
 
 
-<h2>Hello uzbekistan</h2>
+<ol>
+    @foreach (var fan in Model)
+    {
+        <li>@fan.FanName</li>
+    }
+</ol>

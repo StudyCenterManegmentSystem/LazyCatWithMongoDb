@@ -1,0 +1,78 @@
+﻿@page "/fans/edit/{id}"
+
+<MudGrid>
+    <MudItem xs="3"></MudItem>
+    <MudItem xs="6">
+        <MudCard Class="mt-4">
+            <MudCardHeader Class="d-flex justify-center"> <h3>Edit Fan</h3> </MudCardHeader>
+            <MudCardContent>
+                <MudTextField @bind-Value="fan.FanName" Label="Name" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                <MudTextField @bind-Value="fan.FanDescription" Label="Name" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+
+            </MudCardContent>
+            <MudCardActions Class="d-flex justify-center">
+                <MudButton @onclick="Cancel" Variant="Variant.Filled">Cancel</MudButton>
+                <MudButton @onclick="Save" Class="ms-2" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="3"></MudItem>
+</MudGrid>
+
+@code {
+    @inject NavigationManager navigation
+    @inject HttpClient httpClient
+    @inject ISnackbar Snackbar
+    Fan fan = new();
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var response = await httpClient.GetAsync(Constants.BASE_URL + "fans/" + Id);
+        if (response.IsSuccessStatusCode)
+        {
+            fan = await response.Content.ReadFromJsonAsync<Fan>();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            Snackbar.Add("Fan not found!", Severity.Error);
+            navigation.NavigateTo("/fans");
+        }
+        else
+        {
+            string errorContent = await response.Content.ReadAsStringAsync();
+            Snackbar.Add(errorContent, Severity.Error);
+            navigation.NavigateTo("/fans");
+        }
+    }
+
+    private async void Save()
+    {
+        var json = JsonSerializer.Serialize(fan);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await httpClient.PutAsync(Constants.BASE_URL + "fans", data);
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Fan updated successfully!", Severity.Success);
+            Cancel();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            Snackbar.Add(responseContent, Severity.Error);
+        }
+        else
+        {
+            Snackbar.Add("Someting went error!", Severity.Error);
+        }
+    }
+
+
+    private void Cancel()
+    {
+        navigation.NavigateTo("/fans");
+    }
+}
