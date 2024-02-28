@@ -51,6 +51,7 @@ builder.Services.AddScoped(m => new ApplicationDbContext(connectionString!, data
 #endregion
 
 
+
 #region Identity
 
 var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
