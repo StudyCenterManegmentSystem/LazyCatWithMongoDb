@@ -168,9 +168,10 @@ public static class Startup
 
 
         #endregion
+
     }
 
-    public static void Configure(this IApplicationBuilder app, IWebHostEnvironment env)
+    public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.UseSwagger();
         app.UseSwaggerUI();
@@ -182,6 +183,8 @@ public static class Startup
         app.UseCors(CorsPolicyName);
 
         app.UseAuthentication();
+
+        // Add UseAuthorization here
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>
@@ -200,7 +203,7 @@ public static class Startup
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        var roles = new[] { "Admin", "User", "SuperAdmin" };
+        var roles = new[] { "Admin", "Teacher", "SuperAdmin" };
 
         foreach (var role in roles)
         {

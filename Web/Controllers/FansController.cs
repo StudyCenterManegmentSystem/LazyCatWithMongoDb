@@ -12,7 +12,7 @@ public class FansController(IFanService fanService) : ControllerBase
     private readonly IFanService _fanService = fanService;
 
     [HttpGet("get-all-fans")]
-    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    //[Authorize(Roles = "SuperAdmin, Admin , Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
