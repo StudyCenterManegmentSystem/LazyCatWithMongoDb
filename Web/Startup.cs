@@ -182,7 +182,9 @@ public static class Startup
 
         app.UseCors(CorsPolicyName);
 
-        app.UseAuthentication();
+
+        app.UseAuthentication(); // Agar autentifikatsiya ham sozlangan bo'lsa, foydalaning.
+        app.UseAuthorization(); // Avtorizatsiya sozlangan bo'lsa, foydalaning.
 
         app.UseEndpoints(endpoints =>
         {

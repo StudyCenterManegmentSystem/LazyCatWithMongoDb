@@ -6,10 +6,12 @@
         <MudCard Class="mt-4">
             <MudCardHeader Class="d-flex justify-center"> <h3>Add new Fan</h3> </MudCardHeader>
             <MudCardContent>
-                <MudTextField @bind-Value="fanName" Label="FanName" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
-                <MudTextField @bind-Value="fanDescription" Label="FanDescription" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
-
+                <MudStack Direction="Direction.Horizontal">
+                    <MudTextField @bind-Value="fanName" Placeholder="FanName" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                    <MudTextField @bind-Value="fanDescription" Placeholder="FanDescription" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                </MudStack>
             </MudCardContent>
+
             <MudCardActions Class="d-flex justify-center">
                 <MudButton @onclick="Cancel" Variant="Variant.Filled">Cancel</MudButton>
                 <MudButton @onclick="SaveFan" Class="ms-2" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>

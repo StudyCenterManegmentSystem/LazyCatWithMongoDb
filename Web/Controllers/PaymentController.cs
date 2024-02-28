@@ -20,7 +20,9 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
         {
             var payment = await _paymentService.AddPaymentAsync(dto);
             return Ok(payment);
-        }
+                
+                
+         }
         catch(ArgumentNullException ex)
         {
             return BadRequest(ex.Message);

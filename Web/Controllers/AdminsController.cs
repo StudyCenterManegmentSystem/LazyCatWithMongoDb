@@ -12,7 +12,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
     private readonly IAdminService _adminService = adminService;
 
     [HttpPost("register-teacher")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

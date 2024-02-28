@@ -10,7 +10,7 @@ public class AttendanceController(IAttendanceService attendanceService) : Contro
     private readonly IAttendanceService _attendanceService = attendanceService;
 
     [HttpPost("create-attendance")]
-    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
