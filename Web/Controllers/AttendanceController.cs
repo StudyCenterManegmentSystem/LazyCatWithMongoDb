@@ -10,7 +10,7 @@ public class AttendanceController(IAttendanceService attendanceService) : Contro
     private readonly IAttendanceService _attendanceService = attendanceService;
 
     [HttpPost("create-attendance")]
-    [Authorize]
+    //[Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -44,7 +44,7 @@ public class AttendanceController(IAttendanceService attendanceService) : Contro
     }
 
     [HttpPut("update-attendace")]
-    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    //[Authorize(Roles = "SuperAdmin, Admin , Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -78,7 +78,7 @@ public class AttendanceController(IAttendanceService attendanceService) : Contro
     }
 
     [HttpDelete("delete-attendace/{id}")]
-    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    //[Authorize(Roles = "SuperAdmin, Admin , Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
