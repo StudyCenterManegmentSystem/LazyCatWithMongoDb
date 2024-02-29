@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace CRM.Admin.Models.GuruhDtos;
 
 public class Guruh
