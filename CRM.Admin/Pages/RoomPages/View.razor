@@ -1,0 +1,64 @@
+﻿@page "/rooms/view/{id}"
+
+<MudGrid>
+    <MudItem xs="3"></MudItem>
+    <MudItem xs="6">
+        <MudCard Class="mt-4">
+            <MudCardContent>
+                <MudStack Direction="Direction.Horizontal">
+                    <h6>Room Name</h6>
+                    <MudTextField style="color: black" Value="@room.RoomName" Disabled="true" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                    <h6 style="color: black">Qavat</h6>
+                    <MudTextField style="color: black" Value="@room.Qavat" Disabled="true" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                    <h6 style="color: black">Sigimi</h6>
+                    <MudTextField style="color: black" Value="@room.Sigimi" Disabled="true" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                </MudStack>
+            </MudCardContent>
+
+            <MudCardActions Class="d-flex justify-center">
+                <MudButton @onclick="Cancel" Variant="Variant.Filled" Color="Color.Primary">Go Back</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="3"></MudItem>
+</MudGrid>
+
+@code {
+    @inject NavigationManager navigation
+    @inject HttpClient httpClient
+    @inject ISnackbar Snackbar
+
+    private Room room = new Room();
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRoomData();
+    }
+
+    private async Task LoadRoomData()
+    {
+        var response = await httpClient.GetAsync(Constants.BASE_URL + "rooms/get-room/" + Id);
+        if (response.IsSuccessStatusCode)
+        {
+            room = await response.Content.ReadFromJsonAsync<Room>();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            Snackbar.Add("Room not found!", Severity.Error);
+            navigation.NavigateTo("/rooms");
+        }
+        else
+        {
+            Snackbar.Add("Something went wrong!", Severity.Error);
+            navigation.NavigateTo("/rooms");
+        }
+    }
+
+    private void Cancel()
+    {
+        navigation.NavigateTo("/rooms");
+    }
+}
