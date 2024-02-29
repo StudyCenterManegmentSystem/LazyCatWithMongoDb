@@ -67,7 +67,7 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost("create-room")]
     //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
