@@ -39,7 +39,7 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         }
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("get-room/{id}")]
     //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
