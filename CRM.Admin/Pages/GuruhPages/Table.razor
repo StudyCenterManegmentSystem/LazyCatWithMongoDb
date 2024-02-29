@@ -62,7 +62,7 @@
 
     private async Task LoadData()
     {
-        var response = await httpClient.GetAsync(Constants.BASE_URL + "guruhs/all-guruh");
+        var response = await httpClient.GetAsync(Constants.BASE_URL + "groups/get-all-guruh");
         if (response.IsSuccessStatusCode)
         {
             guruhs = await response.Content.ReadFromJsonAsync<List<Guruh>>();
