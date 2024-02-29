@@ -1,0 +1,98 @@
+﻿@page "/rooms/view/{id}"
+
+<MudGrid>
+    <MudItem xs="3"></MudItem>
+    <MudItem xs="6">
+        <MudCard Class="mt-4">
+            <MudCardContent>
+                <MudStack Direction="Direction.Horizontal">
+                    <h6>Room Name</h6>
+                    <MudTextField style="color: black" Value="@room.RoomName" Disabled="true" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                    <h6 style="color: black">Qavat</h6>
+                    <MudTextField style="color: black" Value="@room.Qavat" Disabled="true" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                    <h6 style="color: black">Sigimi</h6>
+                    <MudTextField style="color: black" Value="@room.Sigimi" Disabled="true" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                </MudStack>
+            </MudCardContent>
+
+            <MudCardActions Class="d-flex justify-content-around">
+                <MudButton @onclick="Cancel" Variant="Variant.Filled" Color="Color.Primary" Class="ms-2">Go Back</MudButton>
+                <MudButton @onclick="DeleteRoom" Variant="Variant.Filled" Color="Color.Secondary">Delete</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="3"></MudItem>
+</MudGrid>
+
+@code {
+    @inject NavigationManager navigation
+    @inject HttpClient httpClient
+    @inject ISnackbar Snackbar
+    @inject IDialogService DialogService
+
+
+    private Room room = new Room();
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRoomData();
+    }
+
+    private async Task LoadRoomData()
+    {
+        var response = await httpClient.GetAsync(Constants.BASE_URL + "rooms/get-room/" + Id);
+        if (response.IsSuccessStatusCode)
+        {
+            room = await response.Content.ReadFromJsonAsync<Room>();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            Snackbar.Add("Room not found!", Severity.Error);
+            navigation.NavigateTo("/rooms");
+        }
+        else
+        {
+            Snackbar.Add("Something went wrong!", Severity.Error);
+            navigation.NavigateTo("/rooms");
+        }
+    }
+
+    private async Task DeleteRoom()
+    {
+        var parameters = new DialogParameters<YesNo>();
+        parameters.Add(x => x.ContentText, "Are you sure you want to delete this room?");
+        parameters.Add(x => x.ButtonText, "Yes");
+        parameters.Add(x => x.Color, Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialogResult = await DialogService.Show<YesNo>("Delete", parameters, options).Result;
+        if (dialogResult.Cancelled)
+        {
+            return; // Do nothing if deletion is cancelled
+        }
+
+        var response = await httpClient.DeleteAsync($"{Constants.BASE_URL}rooms/delete/{room.Id}");
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Room deleted successfully!", Severity.Success);
+            navigation.NavigateTo("/rooms");
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            Snackbar.Add("Room not found!", Severity.Error);
+        }
+        else
+        {
+            Snackbar.Add("Something went wrong!", Severity.Error);
+        }
+    }
+
+    private void Cancel()
+    {
+        navigation.NavigateTo("/rooms");
+    }
+}
