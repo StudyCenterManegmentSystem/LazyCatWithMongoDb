@@ -1,4 +1,6 @@
-﻿namespace CRM.Admin.Models.FanDtos
+﻿using CRM.Admin.Models.TeacherDtos;
+
+namespace CRM.Admin.Models.FanDtos
 {
     public class FanTeachersDto
     {

@@ -1,5 +1,4 @@
-﻿
-namespace CRM.Admin.Models;
+﻿namespace CRM.Admin.Models.TeacherDtos;
 
 public class TeacherReturnDto
 {
