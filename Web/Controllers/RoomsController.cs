@@ -95,7 +95,7 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         }
     }
 
-    [HttpPut]
+    [HttpPut("update")]
     //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

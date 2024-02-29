@@ -70,7 +70,7 @@
             var json = JsonSerializer.Serialize(room);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PutAsync(Constants.BASE_URL + "rooms/update/" + Id, data);
+            var response = await httpClient.PutAsync(Constants.BASE_URL + "rooms/update", data);
 
             if (response.IsSuccessStatusCode)
             {
