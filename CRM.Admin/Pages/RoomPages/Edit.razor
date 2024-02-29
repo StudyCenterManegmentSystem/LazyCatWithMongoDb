@@ -1,0 +1,100 @@
+﻿@page "/rooms/edit/{id}"
+
+<MudCard ClassList="mt-4">
+    <MudCardHeader ClassList="d-flex justify-center">
+        <h3>Edit Room</h3>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudGrid>
+            <MudItem xs="12" md="6">
+                <MudTextField @bind-Value="room.RoomName" Label="Room Name" Variant="Variant.Outlined" Required="true"></MudTextField>
+            </MudItem>
+            <MudItem xs="12" md="3">
+                <MudTextField @bind-Value="room.Qavat" Label="Qavat" Variant="Variant.Outlined" InputType="InputType.Number" Required="true"></MudTextField>
+            </MudItem>
+            <MudItem xs="12" md="3">
+                <MudTextField @bind-Value="room.Sigimi" Label="Sigimi" Variant="Variant.Outlined" InputType="InputType.Number" Required="true"></MudTextField>
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+    <MudCardActions ClassList="d-flex justify-center">
+        <MudButton @onclick="SaveRoom" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>
+        <MudButton @onclick="Cancel" ClassList="ms-2" Variant="Variant.Filled">Cancel</MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    @inject HttpClient httpClient
+    @inject NavigationManager navigation
+    @inject ISnackbar Snackbar
+
+    [Parameter]
+    public string Id { get; set; }
+
+    private Room room = new Room();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData(Id);
+    }
+
+    private async Task LoadData(string id)
+    {
+        try
+        {
+            var response = await httpClient.GetAsync(Constants.BASE_URL + "rooms/get-room/" + id);
+            if (response.IsSuccessStatusCode)
+            {
+                room = await response.Content.ReadFromJsonAsync<Room>();
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigation.NavigateTo("/rooms");
+                Snackbar.Add("Room not found!", Severity.Error);
+            }
+            else
+            {
+                Snackbar.Add("Something went wrong!", Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task SaveRoom()
+    {
+        try
+        {
+            var json = JsonSerializer.Serialize(room);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PutAsync(Constants.BASE_URL + "rooms/update", data);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Snackbar.Add("Room updated successfully!", Severity.Success);
+                navigation.NavigateTo("/rooms");
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                Snackbar.Add("Room not found!", Severity.Error);
+                navigation.NavigateTo("/rooms");
+            }
+            else
+            {
+                Snackbar.Add("Something went wrong!", Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private void Cancel()
+    {
+        navigation.NavigateTo("/rooms");
+    }
+}
