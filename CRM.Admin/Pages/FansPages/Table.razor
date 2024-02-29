@@ -22,7 +22,7 @@
             <div style="display: flex; gap: 1rem;">
                 <MudIconButton @onclick="() => OpenEditPage(context.Id)" Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Medium" />
                 <MudIconButton @onclick="() => Delete(context.Id)" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" />
-                <MudIconButton @onclick="() => OpenViewPage()" Icon="@Icons.Material.Filled.Visibility" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium" />
+                <MudIconButton @onclick="() => OpenViewPage(context.Id)" Icon="@Icons.Material.Filled.Visibility" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium" />
             </div>
         </MudTd>
 
@@ -78,11 +78,11 @@
     {
         navigation.NavigateTo($"/fans/edit/{id}");
     }
-    private void OpenViewPage()
+    private void OpenViewPage(string id)
     {
-        navigation.NavigateTo("/fans/view");
-
+        navigation.NavigateTo($"/fans/view/{id}");
     }
+
     private async Task Delete(string id)
     {
         var parameters = new DialogParameters<YesNo>();

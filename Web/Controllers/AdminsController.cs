@@ -60,7 +60,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
     }
 
     [HttpPost("register-admin")]
-    [Authorize(Roles = "SuperAdmin")]
+    //[Authorize(Roles = "SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -94,7 +94,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
     }
 
     [HttpPost("register-superadmin")]
-    [Authorize(Roles = "SuperAdmin")]
+    //[Authorize(Roles = "SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -128,7 +128,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
     }
 
     [HttpDelete("delete-teacher-account")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -168,7 +168,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
     }
 
     [HttpDelete("delete-admin-account")]
-    [Authorize(Roles = "SuperAdmin , Admin")]
+    //[Authorize(Roles = "SuperAdmin , Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -208,7 +208,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
     }
 
     [HttpDelete("delete-superadmin-account")]
-    [Authorize(Roles = "SuperAdmin")]
+    //[Authorize(Roles = "SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -249,7 +249,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
 
 
     [HttpGet("all-teachers-with-fans")]
-    [Authorize(Roles = "SuperAdmin , Admin")]
+    //[Authorize(Roles = "SuperAdmin , Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -279,7 +279,7 @@ public class AdminsController(IAdminService adminService) : ControllerBase
 
 
     [HttpGet("get-by-id-teacher-with-fans/{id}")]
-    [Authorize(Roles = "SuperAdmin , Admin")]
+    //[Authorize(Roles = "SuperAdmin , Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
