@@ -1,94 +1,103 @@
-﻿@page "/fans/view"
+﻿@page "/fans/view/{id}"
 
-<MudTable Items="@fans" Dense="true" Hover="true" Bordered="true" Striped="true" Filter="new Func<FanTeachersDto, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
-    <ToolBarContent>
-        <MudText Typo="Typo.h6">Fans Table</MudText>
-        <MudSpacer />
-        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-        <MudSpacer />
-        <MudButton @onclick="OpenAddPage" StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Success" Size="Size.Medium">Add</MudButton>
-    </ToolBarContent>
-    <HeaderContent>
-       
-        <MudTh>FanName</MudTh>
-        <MudTh>FanDescription</MudTh>
-        <MudTh>Teachers</MudTh>
-        <MudTh>Actions</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="FanName">@context.FanName</MudTd>
-        <MudTd DataLabel="FanDescription">@context.FanDescription</MudTd>
-        <MudTd DataLabel="Teachers">
-            @foreach (var teacher in @context.Teachers)
-            {
-                <div>
-                    <strong>@teacher.FirstName @teacher.LastName</strong>
-                    <br />
-                    <span>Email: @teacher.Email</span>
+<MudGrid>
+    <MudItem xs="3"></MudItem>
+    <MudItem xs="6">
+        <MudCard Class="mt-4">
+            <MudCardContent>
+                <MudStack Direction="Direction.Horizontal">
+                    <h6>Fan Nomi</h6>
+                    <MudTextField style="color: black" Value="@fan.FanName" Disabled="true" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                    <h6 style="color: black">Fan Descriptioni</h6>
+                    <MudTextField style="color: black" Value="@fan.FanDescription" Disabled="true" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+                    <MudTh Class="text-center"><h5 style="color: black">Teachers</h5></MudTh>
+                </MudStack>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">First Name</th>
+                                <th scope="col" class="text-center">Last Name</th>
+                                <th scope="col" class="text-center">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var teacher in fan.Teachers)
+                            {
+                                <tr>
+                                    <td class="text-center">@teacher.FirstName</td>
+                                    <td class="text-center">@teacher.LastName</td>
+                                    <td class="text-center">@teacher.Email</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
-            }
-        </MudTd>
+            </MudCardContent>
 
-        <MudTd DataLabel="Actions">
-            <div style="display: flex; gap: 1rem;">
-                <MudIconButton @onclick="() => OpenEditPage(context.Id)" Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Medium" />
-                <MudIconButton @onclick="() => Delete(context.Id)" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" />
-            </div>
-        </MudTd>
-    </RowTemplate>
-    <PagerContent>
-        <MudTablePager />
-    </PagerContent>
-</MudTable>
+            <MudCardActions Class="d-flex justify-center">
+                <div class="d-flex justify-content-between" style="width: 50%;">
+                    <div>
+                        <MudButton @onclick="Cancel" Variant="Variant.Filled" Color="Color.Primary">GoBack</MudButton>
+                    </div>
+                    <div>
+                        <MudButton @onclick="DeleteFan" Variant="Variant.Filled" Color="Color.Secondary">Delete</MudButton>
+                    </div>
+                </div>
+            </MudCardActions>
+
+
+
+
+        </MudCard>
+    </MudItem>
+    <MudItem xs="3"></MudItem>
+</MudGrid>
+
 
 @code {
+@inject NavigationManager navigation
     @inject HttpClient httpClient
-    @inject NavigationManager navigation
     @inject ISnackbar Snackbar
     @inject IDialogService DialogService
 
-    private string searchString1 = "";
-    private FanTeachersDto selectedItem1 = new();
-    private List<FanTeachersDto> fans = new();
+    FanTeachersDto fan = new();
+
+    [Parameter]
+    public string? Id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        await View1(); // Call View method to load data
+        await LoadFanData();
     }
 
-    private async Task View1()
+    private async Task LoadFanData()
     {
-        var response = await httpClient.GetAsync(Constants.BASE_URL + "fans/get-all-with-teachers");
+        var response = await httpClient.GetAsync(Constants.BASE_URL + "fans/get-by-id-fan-with-teachers/" + Id);
         if (response.IsSuccessStatusCode)
         {
-            fans = await response.Content.ReadFromJsonAsync<List<FanTeachersDto>>();
+            fan = await response.Content.ReadFromJsonAsync<FanTeachersDto?>();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            Snackbar.Add("Fan not found!", Severity.Error);
+            navigation.NavigateTo("/fans");
+        }
+        else
+        {
+            string errorContent = await response.Content.ReadAsStringAsync();
+            Snackbar.Add(errorContent, Severity.Error);
+            navigation.NavigateTo("/fans");
         }
     }
 
-    private bool FilterFunc1(FanTeachersDto element) => FilterFunc(element, searchString1);
-
-    private bool FilterFunc(FanTeachersDto element, string searchString)
+    private void Cancel()
     {
-        if (string.IsNullOrWhiteSpace(searchString))
-            return true;
-        if (element.FanName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if (element.FanDescription.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        return false;
+        navigation.NavigateTo("/fans");
     }
 
-    private void OpenAddPage()
-    {
-        navigation.NavigateTo("/fans/add");
-    }
-
-    private void OpenEditPage(string id)
-    {
-        navigation.NavigateTo($"/fans/edit/{id}");
-    }
-
-    private async Task Delete(string id)
+    private async Task DeleteFan()
     {
         var parameters = new DialogParameters<YesNo>();
         parameters.Add(x => x.ContentText, "Are you sure you want to delete this fan?");
@@ -97,22 +106,25 @@
 
         var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
 
-        var dialogResult = await DialogService.Show<YesNo>("Delete", parameters, options).Result!;
-        if (!dialogResult.Cancelled)
+        var dialogResult = await DialogService.Show<YesNo>("Delete", parameters, options).Result;
+        if (dialogResult.Cancelled)
         {
-            var response = await httpClient.DeleteAsync(Constants.BASE_URL + "fans/delete-fan/" + id);
-            if (response.IsSuccessStatusCode)
-            {
-                Snackbar.Add("Fan deleted successfully!", Severity.Success);
-            }
-            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                Snackbar.Add("Fan not found!", Severity.Error);
-            }
-            else
-            {
-                Snackbar.Add("Something went wrong!", Severity.Error);
-            }
+            return; // Do nothing if deletion is cancelled
+        }
+
+        var response = await httpClient.DeleteAsync($"{Constants.BASE_URL}fans/delete-fan/{fan.Id}");
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Fan deleted successfully!", Severity.Success);
+            navigation.NavigateTo("/fans");
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            Snackbar.Add("Fan not found!", Severity.Error);
+        }
+        else
+        {
+            Snackbar.Add("Something went wrong!", Severity.Error);
         }
     }
 }
