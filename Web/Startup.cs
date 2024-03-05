@@ -1,5 +1,6 @@
 ﻿
 
+using Application.Message;
 using Domain.Entities.Entity.Attendances;
 using Domain.Entities.Entity.Groups;
 using Domain.Entities.Entity.Payments;
@@ -162,11 +163,8 @@ public static class Startup
         services.AddTransient<IPaymentService, PaymentService>();
         services.AddTransient<IAttendanceInterface, AttendanceRepository>();
         services.AddTransient<IAttendanceService, AttendanceService>();
-        services.AddTransient<EmailService>();
-
-
-
-
+        services.AddSingleton<EmailService>();
+        services.AddSingleton<SendService>();
         #endregion
 
     }
