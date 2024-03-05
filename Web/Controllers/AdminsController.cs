@@ -2,14 +2,16 @@
 
 
 using Application.Commens.Helpers;
+using Application.Message;
 
 namespace Web.Controllers;
 
 [Route("api/admins")]
 [ApiController]
-public class AdminsController(IAdminService adminService) : ControllerBase
+public class AdminsController(IAdminService adminService, SendService emailService) : ControllerBase
 {
     private readonly IAdminService _adminService = adminService;
+    private readonly SendService _emailService = emailService;
 
     [HttpPost("register-teacher")]
     //[Authorize(Roles = "SuperAdmin, Admin")]
@@ -23,9 +25,8 @@ public class AdminsController(IAdminService adminService) : ControllerBase
         try
         {
             var response = await _adminService.RegisterTeacherAsync(request);
+            await _emailService.SendEmail(request.Email, request.Password);
             return response.Success ? Ok(response) : Conflict(response);
-
-
         }
         catch (InvalidDataException ex)
         {
