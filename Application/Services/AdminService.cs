@@ -1,15 +1,9 @@
-﻿
+﻿namespace Application.Services;
 
-
-
-using Telegram.Bot.Types;
-
-namespace Application.Services;
-
-public class AdminService (UserManager<Teacher> userManager,
+public class AdminService(UserManager<Teacher> userManager,
                            IConfiguration configuration,
                            RoleManager<ApplicationRole> roleManager,
-                           UserManager<ApplicationUser> userManager1, 
+                           UserManager<ApplicationUser> userManager1,
                            IUnitOfWork unitOfWork,
                            EmailService emailService) : IAdminService
 {
@@ -58,7 +52,7 @@ public class AdminService (UserManager<Teacher> userManager,
     {
         try
         {
-            foreach (var id in request.FanIds)
+            foreach (var id in request.FanIds!)
             {
                 if (!ObjectId.TryParse(id, out ObjectId objectId))
                 {
@@ -97,11 +91,11 @@ public class AdminService (UserManager<Teacher> userManager,
 
             //_ = Task.Run(() => _emailService.SendEmail(teacher.Email!, $"{teacher.FirstName} {teacher.LastName}"));
 
-            return new TeacherRegisterResponse { Success = true, Message = "Teacher registered successfully", TeacherId =teacher.Id.ToString() };
+            return new TeacherRegisterResponse { Success = true, Message = "Teacher registered successfully", TeacherId = teacher!.Id.ToString() };
         }
         catch (CustomException ex)
         {
-            return new TeacherRegisterResponse { Success = false, Message = ex.Message  };
+            return new TeacherRegisterResponse { Success = false, Message = ex.Message };
         }
         catch (ValidationException ex)
         {
@@ -119,7 +113,7 @@ public class AdminService (UserManager<Teacher> userManager,
 
     public async Task<RegisterResponse> RegisterAdminAsync(RegistrationRequest request)
     {
-        
+
         try
         {
             var userExists = await _userManager1.FindByEmailAsync(request.Email);
@@ -222,14 +216,14 @@ public class AdminService (UserManager<Teacher> userManager,
 
             var associatedFanIds = teacher.FanIds;
 
-            foreach (var fanId in associatedFanIds)
+            foreach (var fanId in associatedFanIds!)
             {
                 var fan = await _unitOfWork.FanRepository.GetByIdAsync(fanId);
                 if (fan != null)
                 {
                     teacherWithFans.Fans.Add(fan);
                 }
-              
+
             }
 
             teachersWithFans.Add(teacherWithFans);
@@ -257,14 +251,14 @@ public class AdminService (UserManager<Teacher> userManager,
 
         var associatedFanIds = teacher.FanIds;
 
-        foreach (var fanId in associatedFanIds)
+        foreach (var fanId in associatedFanIds!)
         {
             var fan = await _unitOfWork.FanRepository.GetByIdAsync(fanId);
             if (fan != null)
             {
                 teacherWithFans.Fans.Add(fan);
             }
-            
+
         }
 
         return new List<TeacherWithFansRequest> { teacherWithFans };

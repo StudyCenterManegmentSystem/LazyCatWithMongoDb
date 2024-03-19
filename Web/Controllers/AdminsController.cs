@@ -1,7 +1,4 @@
-﻿
-
-
-using Application.Commens.Helpers;
+﻿using Application.Commens.Helpers;
 using Application.Message;
 
 namespace Web.Controllers;
@@ -45,7 +42,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
             _ = LoggerBot.Log(ex.Message, LogType.Warning);
             return BadRequest(ex.Message);
         }
-     
+
         catch (NotFoundException ex)
         {
             _ = LoggerBot.Log(ex.Message, LogType.Warning);
@@ -148,7 +145,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
 
             return NotFound(ex.Message);
         }
-        catch(ValidationException ex)
+        catch (ValidationException ex)
         {
             _ = LoggerBot.Log(ex.Message, LogType.Warning);
 

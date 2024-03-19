@@ -14,13 +14,14 @@ public class RoomDto : BaseDto
     public int Sigimi { get; set; }
 
     public static implicit operator RoomDto(Room room)
-        => new()
-        {
-            Id = room.Id,
-            RoomName = room.RoomName,
-            Qavat = room.Qavat,
-            Sigimi = room.Sigimi
-        };
+       => room != null! ? new RoomDto
+       {
+           Id = room.Id!,
+           RoomName = room.RoomName,
+           Qavat = room.Qavat,
+           Sigimi = room.Sigimi
+       } : null!;
+
 
     public static implicit operator Room(RoomDto room)
         => new()

@@ -21,8 +21,13 @@ public class StudentService (IUnitOfWork unitOfWork,
         {
             throw new ArgumentNullException("Student is null");
         }
+        if (student.GruopIds == null)
+        {
+            throw new ArgumentNullException("guruhIds", "Group IDs cannot be null");
+        }
+
         var guruhIds = student.GruopIds;
-        foreach (var item in guruhIds)
+        foreach (var item in guruhIds!)
         {
             var guruh = await _unitOfWork.GuruhInterface.GetByIdAsync(item);
             if(guruh is null)
