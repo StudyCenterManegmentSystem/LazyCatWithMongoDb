@@ -6,13 +6,13 @@ namespace Web.Controllers;
 
 [Route("api/rooms")]
 [ApiController]
-//[Authorize(Roles = "Teacher")]
+[Authorize(Roles = "Teacher")]
 public class RoomsController(IRoomService roomService) : ControllerBase
 {
     private readonly IRoomService _roomService = roomService;
 
     [HttpGet("all-room")]
-    //[Authorize(Roles = "SuperAdmin, Admin")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -40,7 +40,7 @@ public class RoomsController(IRoomService roomService) : ControllerBase
     }
 
     [HttpGet("get-room/{id}")]
-    //[Authorize(Roles = "SuperAdmin, Admin")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -68,7 +68,7 @@ public class RoomsController(IRoomService roomService) : ControllerBase
     }
 
     [HttpPost("create-room")]
-    //[Authorize(Roles = "SuperAdmin, Admin")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -96,7 +96,7 @@ public class RoomsController(IRoomService roomService) : ControllerBase
     }
 
     [HttpPut("update")]
-    //[Authorize(Roles = "SuperAdmin, Admin")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -125,7 +125,7 @@ public class RoomsController(IRoomService roomService) : ControllerBase
     }
 
     [HttpDelete("delete/{id}")]
-    //[Authorize(Roles = "SuperAdmin, Admin")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
