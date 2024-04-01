@@ -97,7 +97,7 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
     }
 
     [HttpGet("get-all-payments")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

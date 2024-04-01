@@ -74,13 +74,11 @@ public static class Validator
     }
 
     public static bool IsExist(this Payment payment, IEnumerable<Payment> payments)
-    {
-        return payments.Any(p => p.GroupId == payment.GroupId &&
-                                 p.StudentId == payment.StudentId &&
-                                 p.QanchaTolagan == payment.QanchaTolagan &&
-                                 p.paymentType == payment.paymentType &&
-                                 p.QachonTolagan == p.QachonTolagan);
-    }
+        => payments.Any(p => p.GroupId == payment.GroupId &&
+                        p.StudentId == payment.StudentId &&
+                        p.QanchaTolagan == payment.QanchaTolagan &&
+                        p.paymentType == payment.paymentType &&
+                        p.QachonTolagan == p.QachonTolagan);
     public static bool IsValid(this Attendance attendance)
         => !string.IsNullOrEmpty(attendance.GroupId) &&
            !string.IsNullOrEmpty(attendance.TalabaId) &&

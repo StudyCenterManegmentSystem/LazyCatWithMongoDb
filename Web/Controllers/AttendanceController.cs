@@ -115,7 +115,7 @@ public class AttendanceController(IAttendanceService attendanceService) : Contro
     }
 
     [HttpGet("getall-attendace")]
-    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+   //  [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -125,7 +125,7 @@ public class AttendanceController(IAttendanceService attendanceService) : Contro
     {
         try
         {
-            var result = await _attendanceService.GetAllAttendanceAsync();
+            var result = await _attendanceService.GetAllAttendanceAsync();  
             return Ok(result);
         }
         catch (CustomException ex)

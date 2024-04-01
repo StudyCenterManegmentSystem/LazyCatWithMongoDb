@@ -11,7 +11,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
     private readonly SendService _emailService = emailService;
 
     [HttpPost("register-teacher")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -92,7 +92,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
     }
 
     [HttpPost("register-superadmin")]
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -247,7 +247,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
 
 
     [HttpGet("all-teachers-with-fans")]
-    [Authorize(Roles = "SuperAdmin , Admin")]
+    //[Authorize(Roles = "SuperAdmin , Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

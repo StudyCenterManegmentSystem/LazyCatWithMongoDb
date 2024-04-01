@@ -22,10 +22,10 @@ namespace Web.Controllers
         {
             try
             {
-                var result =   await _gruopInterface.AddGroupAsync(dto);
+                var result = await _gruopInterface.AddGroupAsync(dto);
                 return Ok(result);
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 _ = LoggerBot.Log(ex.Message, LogType.Warning);
 
@@ -63,7 +63,7 @@ namespace Web.Controllers
         {
             try
             {
-               var result =   await _gruopInterface.UpdateAsync(dto);
+                var result = await _gruopInterface.UpdateAsync(dto);
                 return Ok(result);
             }
             catch (ArgumentNullException ex)
@@ -94,7 +94,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("get-all-guruh")]
-        [Authorize(Roles = "SuperAdmin, Admin")]
+        // [Authorize(Roles = "SuperAdmin, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -107,13 +107,13 @@ namespace Web.Controllers
                 var result = await _gruopInterface.GetAllGuruhAsync();
                 return Ok(result);
             }
-            catch(NotFoundException ex)
+            catch (NotFoundException ex)
             {
                 _ = LoggerBot.Log(ex.Message, LogType.Warning);
 
                 return BadRequest(ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _ = LoggerBot.Log(ex.Message, LogType.Error);
 
@@ -159,7 +159,7 @@ namespace Web.Controllers
         {
             try
             {
-                 await _gruopInterface.DeleteAsync(id);
+                await _gruopInterface.DeleteAsync(id);
                 return Ok("Guruh mofaqiyatli o'chirildi");
             }
             catch (NotFoundException ex)

@@ -14,7 +14,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
 
 
     [HttpPost("login")]
-    [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
+   // [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

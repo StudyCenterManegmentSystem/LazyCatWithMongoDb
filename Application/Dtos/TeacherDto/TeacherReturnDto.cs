@@ -23,7 +23,7 @@ namespace Application.Dtos.TeacherDto
             return new TeacherReturnDto
             {
                 TeacherId = teacher.Id.ToString(),
-                Email = teacher.Email,
+                Email = teacher.Email!,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
             };

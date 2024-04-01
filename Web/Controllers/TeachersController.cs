@@ -138,7 +138,7 @@ public class TeachersController(ITeacherService teacherService) : ControllerBase
     }
 
     [HttpGet("all-with-fans")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
