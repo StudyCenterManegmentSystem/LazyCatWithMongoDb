@@ -1,8 +1,4 @@
-﻿
-
-
-
-using Domain.Entities.Entity.Attendances;
+﻿using Domain.Entities.Entity.Attendances;
 
 namespace Infrastructure.Data;
 

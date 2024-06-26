@@ -1,6 +1,4 @@
-﻿
-
-namespace Application.Services;
+﻿namespace Application.Services;
 
 public class IdentityService (UserManager<ApplicationUser> userManager,
                               IConfiguration configuration,
@@ -78,7 +76,7 @@ public class IdentityService (UserManager<ApplicationUser> userManager,
         {
             AccessToken = token,
             Message = "Login Successful",
-            Email = user.Email,
+            Email = user.Email!,
             Success = true,
             UserId = user.Id.ToString()
         };
@@ -89,7 +87,6 @@ public class IdentityService (UserManager<ApplicationUser> userManager,
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null)
             throw new NotFoundException("User not found");
-        // Check password validity
         var passwordValid = await _userManager.CheckPasswordAsync(user, request.Password);
         if (!passwordValid)
             throw new CustomException("Invalid email/password");
@@ -111,15 +108,13 @@ public class IdentityService (UserManager<ApplicationUser> userManager,
 
             var roles = await _userManager.GetRolesAsync(user);
             var token = JwtHelper.GenerateJwtToken(user, roles, _configuration);
-
-            // Generate the new token before removing the old one
             await _userManager.RemoveAuthenticationTokenAsync(user, _configuration["Jwt:Issuer"] ?? "", "Token");
 
             return new LoginResponse
             {
                 AccessToken = token,
                 Message = "Password changed successfully",
-                Email = user.Email,
+                Email = user.Email!,
                 Success = true,
                 UserId = user.Id.ToString()
             };
@@ -157,14 +152,11 @@ public class IdentityService (UserManager<ApplicationUser> userManager,
     }
 
 
-    private bool IsRoleValid(string role)
+    private bool IsRoleValid(string role) => role switch
     {
-        return role switch
-        {
-            "Admin" => true,
-            "User" => true,
-            "SuperAdmin" => true,
-            _ => false
-        };
-    }
+        "Admin" => true,
+        "User" => true,
+        "SuperAdmin" => true,
+        _ => false
+    };
 }

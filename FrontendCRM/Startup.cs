@@ -103,9 +103,9 @@ public static class Startup
                 ValidateLifetime = true,
                 ValidIssuer = configuration["Jwt:Issuer"],
                 ValidAudience = configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"])),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]!)),
                 ClockSkew = TimeSpan.Zero
-            };
+            };  
         });
         #endregion
 
@@ -130,11 +130,7 @@ public static class Startup
         services.AddTransient<IPaymentService, PaymentService>();
         services.AddTransient<IAttendanceInterface, AttendanceRepository>();
         services.AddTransient<IAttendanceService, AttendanceService>();
-        services.AddTransient<EmailService>();
-
-
-
-
+        services.AddTransient<EmailService>(); 
         #endregion
     }
 

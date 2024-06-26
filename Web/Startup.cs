@@ -136,7 +136,7 @@ public static class Startup
                 ValidateLifetime = true,
                 ValidIssuer = configuration["Jwt:Issuer"],
                 ValidAudience = configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"])),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]!)),
                 ClockSkew = TimeSpan.Zero
             };
         });
@@ -235,6 +235,5 @@ public static class Startup
             }
         }
     }
-
     #endregion
 }
