@@ -20,13 +20,19 @@ namespace Application.Dtos.TeacherDto
 
         public static implicit operator TeacherReturnDto(Teacher teacher)
         {
+            if (teacher == null)
+            {
+                return null; // or handle the case where teacher is null
+            }
+
             return new TeacherReturnDto
             {
-                TeacherId = teacher.Id.ToString(),
-                Email = teacher.Email!,
-                FirstName = teacher.FirstName,
-                LastName = teacher.LastName,
+                TeacherId = teacher.Id.ToString() ?? string.Empty,
+                Email = teacher.Email ?? string.Empty,
+                FirstName = teacher.FirstName ?? string.Empty,
+                LastName = teacher.LastName ?? string.Empty,
             };
+
         }
     }
 }
