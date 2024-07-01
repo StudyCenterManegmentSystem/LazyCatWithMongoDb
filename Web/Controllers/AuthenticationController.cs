@@ -44,7 +44,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
 
 
     [HttpPatch("change-password")]
-    [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
+   // [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -73,7 +73,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
 
 
     [HttpPatch("logout")]
-    [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
+   // [Authorize(Roles = "SuperAdmin, Admin, Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -101,7 +101,7 @@ public class AuthenticationController(IIdentityService identityService) : Contro
     }
 
     [HttpDelete("delete-account")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+   // [Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -10,7 +10,7 @@ public class AttendanceController(IAttendanceService attendanceService) : Contro
     private readonly IAttendanceService _attendanceService = attendanceService;
 
     [HttpPost("create-attendance")]
-    [Authorize]
+    [Authorize(Roles = "SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -21,7 +21,7 @@ public class AttendanceController(IAttendanceService attendanceService) : Contro
         try
         {
             var result = await _attendanceService.AddAttendanceAsync(dto);
-            return Ok($"{result} mofaqiyatli qo'shildi");
+            return Ok($"{result} saccsesfully added");
         }
         catch (CustomException ex)
         {
@@ -149,7 +149,7 @@ public class AttendanceController(IAttendanceService attendanceService) : Contro
     }
 
     [HttpGet("gett-by-id-attendace")]
-    [Authorize(Roles = "SuperAdmin, Admin , Teacher")]
+    //[Authorize(Roles = "SuperAdmin, Admin , Teacher")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

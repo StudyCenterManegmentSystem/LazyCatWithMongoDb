@@ -11,7 +11,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
     private readonly SendService _emailService = emailService;
 
     [HttpPost("register-teacher")]
-    [Authorize]
+   // [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -58,7 +58,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
     }
 
     [HttpPost("register-admin")]
-    [Authorize(Roles = "SuperAdmin")]
+   // [Authorize(Roles = "SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -92,7 +92,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
     }
 
     [HttpPost("register-superadmin")]
-    [Authorize]
+   // [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -126,7 +126,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
     }
 
     [HttpDelete("delete-teacher-account")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+   // [Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -166,7 +166,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
     }
 
     [HttpDelete("delete-admin-account")]
-    [Authorize(Roles = "SuperAdmin , Admin")]
+   // [Authorize(Roles = "SuperAdmin , Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -206,7 +206,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
     }
 
     [HttpDelete("delete-superadmin-account")]
-    [Authorize(Roles = "SuperAdmin")]
+ //   [Authorize(Roles = "SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -277,7 +277,7 @@ public class AdminsController(IAdminService adminService, SendService emailServi
 
 
     [HttpGet("get-by-id-teacher-with-fans/{id}")]
-    [Authorize(Roles = "SuperAdmin , Admin")]
+  //  [Authorize(Roles = "SuperAdmin , Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -8,7 +8,7 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
     private readonly IPaymentService _paymentService = paymentService;
 
     [HttpPost("create-payment")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -38,7 +38,7 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
     }
 
     [HttpPut("update-payment")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+   // [Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -64,8 +64,8 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
-    [HttpDelete("delete-payment/{id}")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+   [HttpDelete("delete-payment/{id}")]
+   // [Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -129,7 +129,7 @@ public class PaymentController(IPaymentService paymentService) : ControllerBase
     }
 
     [HttpGet("get-by-id-payment/{id}")]
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    //[Authorize(Roles = "SuperAdmin, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

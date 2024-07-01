@@ -12,8 +12,8 @@ namespace Web.Controllers
         private readonly IGuruhService _gruopInterface = gruopInterface;
 
         [HttpPost("create-guruh")]
-        [Authorize(Roles = "SuperAdmin, Admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        //[Authorize(Roles = "SuperAdmin, Admin")]
+         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -53,7 +53,7 @@ namespace Web.Controllers
         }
 
         [HttpPut("update-guruh")]
-        [Authorize(Roles = "SuperAdmin, Admin")]
+       // [Authorize(Roles = "SuperAdmin, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -122,7 +122,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("get-by-id-guruh/{id}")]
-        [Authorize(Roles = "SuperAdmin, Admin")]
+       // [Authorize(Roles = "SuperAdmin, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -149,7 +149,7 @@ namespace Web.Controllers
             }
         }
         [HttpDelete("delete-guruh/{id}")]
-        [Authorize(Roles = "SuperAdmin, Admin")]
+        //[Authorize(Roles = "SuperAdmin, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
